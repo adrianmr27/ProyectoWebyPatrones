@@ -1,0 +1,70 @@
+USE calificador;
+/*
+CREATE TABLE suscripcion_plan (
+    id_plan INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    precio DECIMAL(5, 2) NOT NULL,
+    limite_estudiantes INT NOT NULL,
+    descripcion VARCHAR(255)
+);*/
+
+CREATE TABLE suscripcion (
+    id_suscripcion INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    activo TINYINT(1) NOT NULL DEFAULT 1,
+    FOREIGN KEY (usuario_id) REFERENCES profesor(id),
+    FOREIGN KEY (plan_id) REFERENCES suscripcion_plan(id_plan)
+);
+
+CREATE TABLE pago (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    suscripcion_id INT NOT NULL,
+    fecha_pago DATE NOT NULL,
+    monto DECIMAL(5, 2) NOT NULL,
+    FOREIGN KEY (suscripcion_id) REFERENCES suscripcion(id_suscripcion)
+);
+
+INSERT INTO suscripcion_plan (nombre, precio, limite_estudiantes, descripcion) VALUES
+('Basic', 4.00, 50, 'El plan Basic te permite gestionar hasta 50 estudiantes por $4 mensuales.'),
+('Pro', 6.00, 150, 'El plan Pro te permite gestionar hasta 150 estudiantes por $6 mensuales.'),
+('Demo', 0.00, 15, 'Gestión de hasta 15 usuarios por 1 mes de forma gratuita');
+
+USE calificador;
+
+ALTER TABLE suscripcion_plan
+ADD COLUMN soporte_correo BOOLEAN NOT NULL DEFAULT FALSE,
+ADD COLUMN soporte_personalizado BOOLEAN NOT NULL DEFAULT FALSE,
+ADD COLUMN almacenamiento_nube BOOLEAN NOT NULL DEFAULT FALSE,
+ADD COLUMN reportes_avanzados BOOLEAN NOT NULL DEFAULT FALSE,
+ADD COLUMN acceso_centro_ayuda BOOLEAN NOT NULL DEFAULT FALSE;
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE suscripcion_plan SET 
+soporte_correo = TRUE, 
+soporte_personalizado = FALSE, 
+almacenamiento_nube = TRUE, 
+reportes_avanzados = FALSE, 
+acceso_centro_ayuda = TRUE 
+WHERE nombre = 'Básico';
+
+UPDATE suscripcion_plan SET 
+soporte_correo = TRUE, 
+soporte_personalizado = TRUE, 
+almacenamiento_nube = TRUE, 
+reportes_avanzados = TRUE, 
+acceso_centro_ayuda = TRUE 
+WHERE nombre = 'Pro';
+
+UPDATE suscripcion_plan SET 
+soporte_correo = TRUE, 
+soporte_personalizado = FALSE, 
+almacenamiento_nube = TRUE, 
+reportes_avanzados = FALSE, 
+acceso_centro_ayuda = TRUE 
+WHERE nombre = 'Demo';
+
+SET SQL_SAFE_UPDATES = 1;
