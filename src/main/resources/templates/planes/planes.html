@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+
 <html>
     <head>
-        <title>Prueba</title>
+        <title>Planes</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -9,9 +10,13 @@
         <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
         <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+        <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+        <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+        <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
     </head>
     <body>
         <header th:replace="~{layout/Plantilla :: header}"/>
-        <div class="container-lg">TODO write content</div>
+        <main th:replace="~{planes/fragmentos :: mainPlanes}"/>
     </body>
 </html>
