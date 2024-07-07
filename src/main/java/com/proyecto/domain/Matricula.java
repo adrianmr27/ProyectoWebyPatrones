@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="estudiante")
+@Table(name="matricula")
 
-public class Estudiante implements Serializable {
-
+public class Matricula implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -18,10 +18,14 @@ public class Estudiante implements Serializable {
     private Long id;
 
     @ManyToOne
-    private Persona personaid;
+    private Estudiante estudianteid;
 
-    public Estudiante(Persona personaid) {
-        this.personaid = personaid;
+    @ManyToOne
+    private Curso cursoid;
+
+    public Matricula(Estudiante estudianteid, Curso cursoid) {
+        this.estudianteid = estudianteid;
+        this.cursoid = cursoid;
     }
     
     

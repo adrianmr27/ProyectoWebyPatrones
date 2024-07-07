@@ -6,23 +6,24 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="estudiante")
+@Table(name="profesor")
 
-public class Estudiante implements Serializable {
+public class Profesor implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @ManyToOne
     private Persona personaid;
+    private String usuario;
+    private String clave;
 
-    public Estudiante(Persona personaid) {
+    public Profesor(Persona personaid, String usuario, String clave) {
         this.personaid = personaid;
+        this.usuario = usuario;
+        this.clave = clave;
     }
-    
-    
+
 }

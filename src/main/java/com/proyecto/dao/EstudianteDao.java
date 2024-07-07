@@ -1,5 +1,8 @@
 package com.proyecto.dao;
 
-public interface EstudianteDao {
+import com.proyecto.domain.Estudiante;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EstudianteDao extends JpaRepository<Estudiante, Long> {
     
 }
