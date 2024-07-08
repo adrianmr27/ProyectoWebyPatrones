@@ -27,6 +27,12 @@ public class PlanesServiceImpl implements PlanesService{
         return planesDao.findById(plan.getIdPlan())
                 .orElse(null);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Planes getPlanesById(Long id) {
+        return planesDao.findById(id).orElse(null);
+    }
 
     @Override
     @Transactional
