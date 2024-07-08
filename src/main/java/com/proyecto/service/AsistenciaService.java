@@ -13,5 +13,5 @@ public interface AsistenciaService {
    
     public void delete(Asistencia asistencia);
 
-    public List<Asistencia> getAsistenciasPorMatricula(Long matriculaId);
+//    public List<Asistencia> getAsistenciasPorMatricula(Long matriculaId);
 }
