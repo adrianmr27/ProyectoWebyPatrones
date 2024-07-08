@@ -7,85 +7,196 @@
         <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
     </head>
     <body>
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-    <symbol id="check" viewBox="0 0 16 16">
-        <title>Check</title>
-        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-    </symbol>
-    </svg>
-    <main  th:fragment="mainPlanes" class="container-lg py-4 mx-auto">
-        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal text-body-emphasis">Planes</h1>
-            <p class="fs-5 text-body-secondary">Gestiona tus lecciones y estudiantes sin esfuerzo con nuestra plataforma intuitiva y poderosa. <br><br>Di adiós al caos de los registros manuales y abraza una forma más inteligente y efectiva de administrar tu aula.</p>
-        </div>
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-            <div class="col" th:each="plan : ${planes}">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal" th:text="${plan.nombre}">Plan Name</h4>
-                    </div>
-                    <div class="card-body">
-                        <h1 class="card-title pricing-card-title">
-                            <span th:text="${plan.precio}">0</span>
-                            <small class="text-body-secondary fw-light">/mes</small>
-                        </h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li th:text="${plan.descripcion}">Descripción del plan</li>
-                        </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Suscribirse</button>
+
+        <main  th:fragment="mainPlanes" class="container-lg py-4 mx-auto">
+            <div class="py-5 text-center">
+                <h2>Planes</h2>
+                <p class="lead">Gestiona tus lecciones y estudiantes sin esfuerzo con nuestra plataforma intuitiva y poderosa.</p>
+                <p class="lead">Di adiós al caos de los registros manuales y abraza una forma más inteligente y efectiva de administrar tu aula.</p>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div class="col" th:each="plan : ${planes}">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal" th:text="${plan.nombre}">Plan Name</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">
+                                <span th:text="${plan.precio}">0</span>
+                                <small class="text-body-secondary fw-light">/mes</small>
+                            </h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li th:text="${plan.descripcion}">Descripción del plan</li>
+                            </ul>
+                            <a th:href="@{/suscripcion?planId={planId}(planId=${plan.idPlan})}" class="w-100 btn btn-lg btn-outline-primary">Suscribirse</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <h2 class="display-6 text-center mb-4">Comparar planes</h2>
+            <h2 class="display-6 text-center mb-4">Comparar planes</h2>
 
-        <div class="table-responsive">
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th style="width: 34%;"></th>
-                        <th th:each="plan : ${planes}" style="width: 22%;" th:text="${plan.nombre}">Plan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row" class="text-start">Cantidad de Estudiantes</th>
-                        <td th:each="plan : ${planes}" th:text="${plan.limiteEstudiantes}">0</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Soporte por Correo Electrónico</th>
-                        <td th:each="plan : ${planes}">
-                            <input type="checkbox" th:checked="${plan.soporteCorreo}" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Soporte Personalizado</th>
-                        <td th:each="plan : ${planes}">
-                            <input type="checkbox" th:checked="${plan.soportePersonalizado}"  disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Almacenamiento en la Nube</th>
-                        <td th:each="plan : ${planes}">
-                            <input type="checkbox" th:checked="${plan.almacenamientoNube}" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Reportes Avanzados</th>
-                        <td th:each="plan : ${planes}">
-                            <input type="checkbox" th:checked="${plan.reportesAvanzados}" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Acceso a Centro de Ayuda</th>
-                        <td th:each="plan : ${planes}">
-                            <input type="checkbox" th:checked="${plan.accesoCentroAyuda}" disabled>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
-</body>
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th style="width: 34%;"></th>
+                            <th th:each="plan : ${planes}" style="width: 22%;" th:text="${plan.nombre}">Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-start">Cantidad de Estudiantes</th>
+                            <td th:each="plan : ${planes}" th:text="${plan.limiteEstudiantes}">0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Soporte por Correo Electrónico</th>
+                            <td th:each="plan : ${planes}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="soporteCorreo" th:checked="${plan.soporteCorreo}" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Soporte Personalizado</th>
+                            <td th:each="plan : ${planes}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="soportePersonalizado" th:checked="${plan.soportePersonalizado}" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Almacenamiento en la Nube</th>
+                            <td th:each="plan : ${planes}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="almacenamientoNube" th:checked="${plan.almacenamientoNube}" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Reportes Avanzados</th>
+                            <td th:each="plan : ${planes}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="reportesAvanzados" th:checked="${plan.reportesAvanzados}" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Acceso a Centro de Ayuda</th>
+                            <td th:each="plan : ${planes}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="accesoCentroAyuda" th:checked="${plan.accesoCentroAyuda}" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- Fragmento para el registro o fomulario de suscripcion -->
+        <main th:fragment="mainRegistroSuscripcion" class="container-lg py-4 mx-auto">
+            <div class="py-5 text-center">
+                <h2>Formulario de Suscripción</h2>
+                <p class="lead">Complete el formulario para suscribirse al plan seleccionado.</p>
+            </div>
+            <div class="row g-5">
+                <!-- Carrito de compras -->
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">Su carrito</span>
+                        <span class="badge bg-primary rounded-pill">1</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0" th:text="${selectedPlan.nombre}">Nombre del plan</h6>
+                                <small class="text-body-secondary" th:text="${selectedPlan.descripcion}">Descripción breve</small>
+                            </div>
+                            <span class="text-body-secondary" th:text="${selectedPlan.precio}">Precio</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (USD)</span>
+                            <strong th:text="${selectedPlan.precio}">Precio</strong>
+                        </li>
+                    </ul>
+                    <form class="card p-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Código promocional">
+                            <button type="submit" class="btn btn-secondary">Canjear</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Formulario de suscripción -->
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Detalles del Profesor</h4>
+                    <form th:action="@{/suscripcion}" th:object="${profesor}" method="post" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="id" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="id" th:field="*{id}" required>
+                                <div class="invalid-feedback">
+                                    Identificacion es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                                <div class="invalid-feedback">
+                                    Nombre es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="apellido1" class="form-label">Primer Apellido</label>
+                                <input type="text" class="form-control" id="apellido1" th:field="*{apellido1}" required>
+                                <div class="invalid-feedback">
+                                    Primer Apellido es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="apellido2" class="form-label">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="apellido2" th:field="*{apellido2}" required>
+                                <div class="invalid-feedback">
+                                    Segundo Apellido es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="correo" class="form-label">Correo</label>
+                                <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+                                <div class="invalid-feedback">
+                                    Correo es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+                                <div class="invalid-feedback">
+                                    Teléfono es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="usuario" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" th:field="*{usuario}" required>
+                                <div class="invalid-feedback">
+                                    Usuario es requerido.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="clave" class="form-label">Clave</label>
+                                <input type="password" class="form-control" id="clave" th:field="*{clave}" required>
+                                <div class="invalid-feedback">
+                                    Clave es requerida.
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <input type="hidden" name="planId" th:value="${selectedPlan.idPlan}" />
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+    </body>
 </html>
