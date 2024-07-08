@@ -12,4 +12,6 @@ public interface AsistenciaService {
     public void save(Asistencia asistencia);
    
     public void delete(Asistencia asistencia);
+
+    public List<Asistencia> getAsistenciasPorMatricula(Long matriculaId);
 }

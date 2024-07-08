@@ -37,5 +37,9 @@ public class AsistenciaServiceImpl implements AsistenciaService {
     public void delete(Asistencia asistencia) {
         asistenciaDao.delete(asistencia);
     }
+
+    public List<Asistencia> getAsistenciasPorMatricula(Long matriculaId) {
+        return asistenciaDao.findByMatriculaid(matriculaId);
+    }
 }
     
