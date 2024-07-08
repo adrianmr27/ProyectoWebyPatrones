@@ -14,13 +14,15 @@ public class Asistencia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "matriculaid")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "matricula_id")
     private Matricula matriculaid;
+
     private Date fecha;
 
-    public Asistencia() {
-        // Constructor sin parámetros
-    }
+    public Asistencia() {}
 
     public Asistencia(Matricula matriculaid, Date fecha) {
         this.matriculaid = matriculaid;
