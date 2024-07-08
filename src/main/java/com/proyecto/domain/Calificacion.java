@@ -1,4 +1,5 @@
 package com.proyecto.domain;
+
 import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
@@ -6,7 +7,6 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="calificacion")
-
 public class Calificacion implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -27,6 +27,10 @@ public class Calificacion implements Serializable {
     private Float examen2;
     private Float proyecto;
 
+    public Calificacion() {
+        // Constructor sin argumentos
+    }
+
     public Calificacion(Matricula matriculaid, Float laboratorio1, Float laboratorio2, Float quiz1, Float quiz2, Float examen1, Float examen2, Float proyecto) {
         this.matriculaid = matriculaid;
         this.laboratorio1 = laboratorio1;
@@ -37,6 +41,4 @@ public class Calificacion implements Serializable {
         this.examen2 = examen2;
         this.proyecto = proyecto;
     }
-    
-    
 }
