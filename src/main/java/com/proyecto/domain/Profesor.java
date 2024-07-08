@@ -3,12 +3,14 @@ package com.proyecto.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table(name="profesor")
 
-public class Profesor implements Serializable {
+public class Profesor extends Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,14 +18,18 @@ public class Profesor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private Persona personaid;
+    
     private String usuario;
     private String clave;
 
-    public Profesor(Persona personaid, String usuario, String clave) {
-        this.personaid = personaid;
+    public Profesor() {
+        super();
+    }
+
+
+    public Profesor(String nombre, String apellido1, String apellido2, String correo, Integer telefono, String usuario, String clave) {
+        super(nombre, apellido1, apellido2, correo, telefono);
         this.usuario = usuario;
         this.clave = clave;
     }
-
 }
