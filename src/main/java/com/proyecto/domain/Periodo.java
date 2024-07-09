@@ -22,6 +22,9 @@ public class Periodo implements Serializable {
         this.anno = anno;
         this.cuatrimestre = cuatrimestre;
     }
+
+    public Periodo() {
+    }
     
     
 }

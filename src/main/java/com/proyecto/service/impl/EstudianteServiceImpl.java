@@ -38,4 +38,14 @@ public class EstudianteServiceImpl implements EstudianteService {
     public void delete(Estudiante estudiante) {
         estudianteDao.delete(estudiante);
     }
+
+    @Override
+    public List<Estudiante> buscar(String query) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Estudiante findById(Long idEstudiante) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

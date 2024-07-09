@@ -9,6 +9,7 @@ import lombok.Data;
 @Table(name = "profesor")
 public class Profesor implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
 
     @Id

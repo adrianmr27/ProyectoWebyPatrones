@@ -21,6 +21,7 @@ public class Persona implements Serializable {
     private String correo;
     private Integer telefono;
 
+
     public Persona() {
         // Constructor vacío necesario para JPA
     }
@@ -33,4 +34,10 @@ public class Persona implements Serializable {
         this.correo = correo;
         this.telefono = telefono;
     }
+
+    public Persona() {
+
+    }
+    
+    
 }
