@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name="profesor")
 public class Profesor extends Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
