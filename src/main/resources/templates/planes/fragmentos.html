@@ -134,43 +134,43 @@
                     <form th:action="@{/suscripcion}" th:object="${profesor}" method="post" class="needs-validation" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="id" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="id" th:field="*{id}" required>
+                                <label for="personaId" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="personaId" th:field="*{persona.idPersona}" required>
                                 <div class="invalid-feedback">
-                                    Identificacion es requerido.
+                                    Identificación es requerida.
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                                <input type="text" class="form-control" id="nombre" th:field="*{persona.nombre}" required>
                                 <div class="invalid-feedback">
                                     Nombre es requerido.
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="apellido1" class="form-label">Primer Apellido</label>
-                                <input type="text" class="form-control" id="apellido1" th:field="*{apellido1}" required>
+                                <input type="text" class="form-control" id="apellido1" th:field="*{persona.apellido1}" required>
                                 <div class="invalid-feedback">
                                     Primer Apellido es requerido.
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="apellido2" class="form-label">Segundo Apellido</label>
-                                <input type="text" class="form-control" id="apellido2" th:field="*{apellido2}" required>
+                                <input type="text" class="form-control" id="apellido2" th:field="*{persona.apellido2}" required>
                                 <div class="invalid-feedback">
                                     Segundo Apellido es requerido.
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="correo" class="form-label">Correo</label>
-                                <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+                                <input type="email" class="form-control" id="correo" th:field="*{persona.correo}" required>
                                 <div class="invalid-feedback">
                                     Correo es requerido.
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+                                <input type="text" class="form-control" id="telefono" th:field="*{persona.telefono}" required>
                                 <div class="invalid-feedback">
                                     Teléfono es requerido.
                                 </div>
@@ -197,6 +197,7 @@
                 </div>
             </div>
         </main>
+
 
     </body>
 </html>

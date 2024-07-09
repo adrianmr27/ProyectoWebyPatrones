@@ -3,12 +3,12 @@ package com.proyecto.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class Profesor extends Persona implements Serializable {
+@Table(name = "profesor")
+public class Profesor implements Serializable {
+
 
     private static final long serialVersionUID = 1L;
 
@@ -16,17 +16,20 @@ public class Profesor extends Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "personaid", referencedColumnName = "id") // referencia el campo id de persona para la herencia 
+    private Persona persona; //tipo persona
     
     private String usuario;
     private String clave;
 
     public Profesor() {
-        super();
+        // Constructor vacío necesario para JPA
     }
 
-
-    public Profesor(String nombre, String apellido1, String apellido2, String correo, Integer telefono, String usuario, String clave) {
-        super(nombre, apellido1, apellido2, correo, telefono);
+    public Profesor(Persona persona, String usuario, String clave) { //contructor de profesor con persona
+        this.persona = persona;
         this.usuario = usuario;
         this.clave = clave;
     }
