@@ -19,7 +19,7 @@ public class Suscripcion implements Serializable {
     private Long idSuscripcion;
 
     @ManyToOne
-    @JoinColumn(name = "profesor_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Profesor profesor;
 
     @ManyToOne
