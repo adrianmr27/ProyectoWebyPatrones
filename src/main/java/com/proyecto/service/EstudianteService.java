@@ -12,4 +12,8 @@ public interface EstudianteService {
     public void save(Estudiante estudiante);
    
     public void delete(Estudiante estudiante);
+
+    public List<Estudiante> buscar(String query);
+
+    public Estudiante findById(Long idEstudiante);
 }

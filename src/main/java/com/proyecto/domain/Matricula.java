@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="matricula")
-
 public class Matricula implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -17,16 +16,22 @@ public class Matricula implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    private Estudiante estudianteid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estudianteid")
+    private Estudiante estudiante;
 
     @ManyToOne
-    private Curso cursoid;
+    @JoinColumn(name = "cursoid")
+    private Curso curso;
 
-    public Matricula(Estudiante estudianteid, Curso cursoid) {
-        this.estudianteid = estudianteid;
-        this.cursoid = cursoid;
+    public Matricula() {
     }
+
+    public Matricula(Estudiante estudiante, Curso curso) {
+        this.estudiante = estudiante;
+        this.curso = curso;
+    }
+
     
     
 }

@@ -21,12 +21,16 @@ public class Curso implements Serializable {
     private int cantidadsesiones;
 
     @ManyToOne
-    private Periodo periodoid;
+    @JoinColumn(name = "periodoid")
+    private Periodo periodo;
 
-    public Curso(String nombre, int cantidadsesiones, Periodo periodoid) {
+    public Curso(String nombre, int cantidadsesiones, Periodo periodo) {
         this.nombre = nombre;
         this.cantidadsesiones = cantidadsesiones;
-        this.periodoid = periodoid;
+        this.periodo = periodo;
+    }
+
+    public Curso() {
     }
     
     
