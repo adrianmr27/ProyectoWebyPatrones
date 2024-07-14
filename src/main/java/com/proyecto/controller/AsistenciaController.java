@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/asistencias")
+@RequestMapping("/asistencias")          
 public class AsistenciaController {
 
     @Autowired
@@ -32,13 +32,13 @@ public class AsistenciaController {
     public String obtenerAsistenciasPorMatricula(@PathVariable Long matriculaId, Model model) {
         List<Asistencia> asistencias = asistenciaService.getAsistenciasPorMatricula(matriculaId);
         model.addAttribute("asistencias", asistencias);
-        return "asistencias/lista";
+        return "asistencias/listado";
     }
 
     @GetMapping
     public String listarAsistencias(Model model) {
         List<Asistencia> asistencias = asistenciaService.getAsistencias();
         model.addAttribute("asistencias", asistencias);
-        return "asistencias/lista";
+        return "asistencias/listado";
     }
 }

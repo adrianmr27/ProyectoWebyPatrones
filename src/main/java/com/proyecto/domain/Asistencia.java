@@ -17,7 +17,7 @@ public class Asistencia implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "matricula_id")
+    @JoinColumn(name = "matriculaid")
     private Matricula matriculaid;
 
     private Date fecha;
