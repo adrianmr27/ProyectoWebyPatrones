@@ -12,7 +12,7 @@ public class Periodo implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //genera id de forma automatica
     @Column(name = "id")
     private Long id;
     private int anno;

@@ -39,11 +39,6 @@ public class EstudianteServiceImpl implements EstudianteService {
     public void delete(Estudiante estudiante) {
         estudianteDao.delete(estudiante);
     }
-
-    @Override
-    public Estudiante findById(Long idEstudiante) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     @Override
     public List<Estudiante> buscar(String nombre) {
@@ -56,6 +51,11 @@ public class EstudianteServiceImpl implements EstudianteService {
                 .collect(Collectors.toList());
         return resultados;
     }
-    
+
+    @Override
+    public Estudiante findById(Long idEstudiante) {
+        return estudianteDao.findById(idEstudiante).orElse(null);
+    }
+
     
 }
