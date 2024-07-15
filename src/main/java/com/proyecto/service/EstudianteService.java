@@ -13,7 +13,11 @@ public interface EstudianteService {
    
     public void delete(Estudiante estudiante);
 
-    public List<Estudiante> buscar(String query);
+    public List<Estudiante> buscar(String nombre);
 
     public Estudiante findById(Long idEstudiante);
+    
+    
+    
+    
 }
