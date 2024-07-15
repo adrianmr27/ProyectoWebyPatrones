@@ -51,15 +51,14 @@ public class EstudiantesController {
         estudiante = estudianteService.getEstudiante(estudiante);
         model.addAttribute("estudiante", estudiante);
         return "/estudiante/modifica";
-    }
-    
+
     @GetMapping("/buscarEstudiante")
     public String buscarEstudiante(@RequestParam("q") String nombre, Model model) {
         List<Estudiante> estudiantes = estudianteService.buscar(nombre);
 
         model.addAttribute("estudiantes", estudiantes);
 
-        return "estudiante/listado";
+
     }
 
 }
