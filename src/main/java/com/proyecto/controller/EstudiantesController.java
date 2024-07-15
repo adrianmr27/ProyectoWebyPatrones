@@ -54,19 +54,20 @@ public class EstudiantesController {
         model.addAttribute("estudiante", estudiante);
         return "/estudiantes/modifica";
     }
-//    @GetMapping("/modificar/{idEstudiante}")
-//    public String estudianteModificar(@PathVariable Long idEstudiante, Model model) {
-//        Estudiante estudiante = estudianteService.findById(idEstudiante);
-//        model.addAttribute("estudiante", estudiante);
-//        return "estudiantes/modifica";
-//    }
+/*
+    @GetMapping("/modificar/{idEstudiante}")
+    public String estudianteModificar(@PathVariable Long idEstudiante, Model model) {
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
+        model.addAttribute("estudiante", estudiante);
+        return "estudiantes/modifica";
+  
+    }
 
-//    @GetMapping("/modificar/{idEstudiante}")
-//    public String estudianteModificar(@PathVariable Long idEstudiante, Model model) {
-//        Estudiante estudiante = estudianteService.findById(idEstudiante);
-//        model.addAttribute("estudiante", estudiante);
-//        return "/estudiantes/modifica";
-//    }
+    @GetMapping("/modificar/{idEstudiante}")
+    public String estudianteModificar(@PathVariable Long idEstudiante, Model model) {
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
+        model.addAttribute("estudiante", estudiante);
+    }*/
 
     @GetMapping("/buscarEstudiante")
     public String buscarEstudiante(@RequestParam("q") String query, Model model) {
@@ -79,6 +80,7 @@ public class EstudiantesController {
 
         model.addAttribute("resultados", resultados);
         return "resultadosBusqueda"; // Nombre de la vista que mostrará los resultados de la búsqueda
+
     }
 
 }
