@@ -34,6 +34,5 @@ public class Persona implements Serializable {
         this.correo = correo;
         this.telefono = telefono;
     }
-    
-    
+
 }
