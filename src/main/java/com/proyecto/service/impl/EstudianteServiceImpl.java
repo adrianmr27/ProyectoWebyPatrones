@@ -4,13 +4,14 @@ import com.proyecto.dao.EstudianteDao;
 import com.proyecto.domain.Estudiante;
 import com.proyecto.service.EstudianteService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService {
-
+    
     @Autowired
     private EstudianteDao estudianteDao;
 
@@ -40,12 +41,21 @@ public class EstudianteServiceImpl implements EstudianteService {
     }
 
     @Override
-    public List<Estudiante> buscar(String query) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public Estudiante findById(Long idEstudiante) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    public List<Estudiante> buscar(String nombre) {
+        
+        List<Estudiante> estudiantes = estudianteDao.findAll();
+        
+        //filtrado
+        List<Estudiante> resultados = estudiantes.stream()
+                .filter(estudiante -> estudiante.getPersona().getNombre().toLowerCase().contains(nombre.toLowerCase()))
+                .collect(Collectors.toList());
+        return resultados;
+    }
+    
+    
 }
