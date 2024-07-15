@@ -16,8 +16,5 @@ public interface EstudianteService {
     public List<Estudiante> buscar(String nombre);
 
     public Estudiante findById(Long idEstudiante);
-    
-    
-    
- 
+
 }

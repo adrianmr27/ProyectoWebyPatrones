@@ -54,7 +54,7 @@
                             <h5 class="modal-title">Agregar Estudiante</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/estudiante/guardar}" th:object="${estudiante}"
+                        <form th:action="@{/estudiantes/guardar}" th:object="${estudiante}"
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
@@ -115,10 +115,10 @@
                                                 <span th:each="matricula : ${estudiante.matriculas}" th:text="${matricula.curso.nombre + ', '}"></span>
                                             </td>
                                             <td>
-                                                <a th:href="@{/estudiante/eliminar/}+${estudiante.id}"
+                                                <a th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
                                                    class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> Eliminar</a>
-                                                <a th:href="@{/estudiante/modificar/}+${estudiante.id}"
+                                                <a th:href="@{/estudiantes/modificar/{id}(id=${estudiante.id})}"
                                                    class="btn btn-success">
                                                     <i class="fas fa-pencil"></i> Actualizar</a>
                                             </td>
@@ -141,11 +141,11 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST"
-                          th:action="@{/estudiante/guardar}" 
+                          th:action="@{/estudiantes/guardar}" 
                           th:object="${estudiante}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
-                        <input type="hidden" name="idEstudiante" th:field="*{idEstduiante}"/>
+                        <input type="hidden" name="idEstudiante" th:field="*{id}"/>
                         <section th:replace="~{estudiante/fragmentos :: botonesEditar}"/>
                         <div id=details>
                             <div class="container">
@@ -157,33 +157,39 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
+                                                    <label for="nombre">Id del estudiante</label>
+                                                    <input type="number" class="form-control" 
+                                                           name="nombre" th:field="*{persona.idPersona}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
                                                     <label for="nombre">Nombre del estudiante</label>
                                                     <input type="text" class="form-control" 
-                                                           name="nombre" th:field="*{nombre}"
+                                                           name="nombre" th:field="*{persona.nombre}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="apellido1">Primer apellido</label>
                                                     <input type="text" class="form-control" 
-                                                           name="apellido1" th:field="*{apellido1}"
+                                                           name="apellido1" th:field="*{persona.apellido1}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="apellido2">Segundo apellido</label>
                                                     <input type="text" class="form-control" 
-                                                           name="apellido2" th:field="*{apellido2}"
+                                                           name="apellido2" th:field="*{persona.apellido2}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="correo">Çorreo</label>
                                                     <input type="text" class="form-control" 
-                                                           name="correo" th:field="*{correo}"
+                                                           name="correo" th:field="*{persona.correo}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="telefono">Telefono</label>
                                                     <input type="text" class="form-control" 
-                                                           name="telefono" th:field="*{telefono}"
+                                                           name="telefono" th:field="*{persona.telefono}"
                                                            required="true">
                                                 </div>
                                             </div>
@@ -201,12 +207,12 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/estudiante/listado}" class="btn btn-primary">
+                        <a th:href="@{/estudiantes/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> Regresar
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/estudiante/eliminar/}+${estudiante.idEstudiante}"
+                        <a th:href="@{/estudiantes/eliminar/}+${estudiante.id}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> Eliminar
                         </a>
