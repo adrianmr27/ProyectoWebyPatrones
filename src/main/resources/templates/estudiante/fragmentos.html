@@ -3,8 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
+
     <head th:replace="~{layout/plantilla2 :: head}">
         <title>Estudiantes</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+            <!-- Bootstrap Bundle with Popper -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
@@ -52,9 +56,12 @@
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
                             <h5 class="modal-title">Agregar Estudiante</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div> 
-                        <form th:action="@{/estudiantes/guardar}" th:object="${estudiante}"
+                        <!--                        borrado a la par de guardar th:object="${estudiante}"-->
+                        <form th:action="@{/estudiante/guardar}" th:object="${estudiante}"
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
@@ -115,10 +122,10 @@
                                                 <span th:each="matricula : ${estudiante.matriculas}" th:text="${matricula.curso.nombre + ', '}"></span>
                                             </td>
                                             <td>
-                                                <a th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
+                                                <a th:href="@{/estudiante/eliminar/{id}(id=${estudiante.id})}"
                                                    class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> Eliminar</a>
-                                                <a th:href="@{/estudiantes/modificar/{id}(id=${estudiante.id})}"
+                                                <a th:href="@{/estudiante/modificar/{id}(id=${estudiante.id})}"
                                                    class="btn btn-success">
                                                     <i class="fas fa-pencil"></i> Actualizar</a>
                                             </td>
@@ -141,7 +148,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST"
-                          th:action="@{/estudiantes/guardar}" 
+                          th:action="@{/estudiante/guardar}" 
                           th:object="${estudiante}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
@@ -207,12 +214,12 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/estudiantes/listado}" class="btn btn-primary">
+                        <a th:href="@{/estudiante/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> Regresar
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/estudiantes/eliminar/}+${estudiante.id}"
+                        <a th:href="@{/estudiante/eliminar/}+${estudiante.id}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> Eliminar
                         </a>
@@ -232,11 +239,7 @@
                     var filtro = $(this).val().toLowerCase();
                     $('.fila-estudiante').each(function () {
                         var nombreEstudiante = $(this).find('td:first').text().toLowerCase();
-                        if (nombreEstudiante.includes(filtro)) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
+                        $(this).toggle(nombreEstudiante.includes(filtro));
                     });
                 });
             });
