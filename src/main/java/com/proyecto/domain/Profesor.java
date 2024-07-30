@@ -9,7 +9,6 @@ import lombok.Data;
 @Table(name = "profesor")
 public class Profesor implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -21,7 +20,10 @@ public class Profesor implements Serializable {
     @JoinColumn(name = "personaid", referencedColumnName = "id") // referencia el campo id de persona para la herencia 
     private Persona persona; //tipo persona
     
+    @Column(name = "usuario", unique = true, nullable = false)
     private String usuario;
+    
+    @Column(name = "clave", nullable = false)
     private String clave;
 
     public Profesor() {

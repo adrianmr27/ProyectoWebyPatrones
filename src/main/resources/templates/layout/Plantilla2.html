@@ -21,7 +21,28 @@
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/">Gestiones de Clases</a>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/estudiantes">Gestión de Estudiantes</a>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">Configuración</a>
-                    <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/">Salir</a>
+                    <div>
+                        <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                            <li class="nav-item px-2">
+                                <a class="nav-menu-link nav-link" th:href="@{/login}">
+                                    <i class='fas fa-sign-in-alt'></i>
+                                </a>
+                            </li>                            
+                        </ul>
+                        <ul class="navbar-nav d-flex align-items-center" sec:authorize="isAuthenticated()">
+                            <li class="nav-item text-white mx-2">
+                                <span sec:authentication='name'>Santi</span>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <form method="post" th:action="@{/logout}">
+                                    <button class="btn btn-dark">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </form>
+                            </li>                            
+                        </ul>
+                    </div>
+
                 </nav>
             </div>
         </header>

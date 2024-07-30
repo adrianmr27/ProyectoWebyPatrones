@@ -21,15 +21,15 @@
         <header th:replace="layout/Plantilla :: header"></header>
         <div class="container m-auto">
             <main class="form-signin w-25 m-auto">
-                <form>
-                    <h1 class="h3 mb-3 fw-normal">Por favor inicia sesión</h1>
+                <form th:action="@{/login}" method="post">
+                    <h1 class="h3 mb-3 fw-normal">Por favor, inicia sesión</h1>
 
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Correo electrónico</label>
+                        <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Usuario">
+                        <label for="floatingInput">Usuario</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Contraseña">
                         <label for="floatingPassword">Contraseña</label>
                     </div>
 
@@ -39,8 +39,16 @@
                             Recuérdame
                         </label>
                     </div>
-                    <button class="btn btn-primary w-100 py-2" type="button" onclick="window.location.href = 'estudiantes/listado'">Iniciar sesión</button>
-                    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+
+                    <!-- Mostrar mensaje de error si hay un parámetro "error" en la URL -->
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger" role="alert">
+                            Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary w-100 py-2" type="submit">Iniciar sesión</button>
+                    <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
                 </form>
             </main>
         </div>
