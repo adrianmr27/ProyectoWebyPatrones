@@ -19,17 +19,17 @@
     </head>
     <body>
         <header th:replace="layout/Plantilla :: header"></header>
-        <div class="container m-auto">
+        <div class="container m-auto"> 
             <main class="form-signin w-25 m-auto">
-                <form>
+                <form method="POST" th:action="@{/login}">
                     <h1 class="h3 mb-3 fw-normal">Por favor inicia sesión</h1>
 
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="name@example.com">
                         <label for="floatingInput">Correo electrónico</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                         <label for="floatingPassword">Contraseña</label>
                     </div>
 
@@ -39,9 +39,13 @@
                             Recuérdame
                         </label>
                     </div>
-                    <button class="btn btn-primary w-100 py-2" type="button" onclick="window.location.href = 'estudiantes/listado'">Iniciar sesión</button>
+                    <button class="btn btn-primary w-100 py-2" type="submit" onclick="window.location.href = 'estudiantes/listado'">Iniciar sesión</button>
+
                     <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
                 </form>
+                <div th:if="${param.error != null}">
+                    <h3>[[#{error.login}]]</h3>
+                </div>
             </main>
         </div>
 

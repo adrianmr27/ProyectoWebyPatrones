@@ -39,7 +39,7 @@ public class SuscripcionController {
         model.addAttribute("selectedPlan", plan);
         model.addAttribute("profesor", new Profesor());
         model.addAttribute("suscripcion", new Suscripcion());
-        return "planes/formulario"; // Asegúrate de que el path sea correcto y la vista exista
+        return "planes/formulario"; 
     }
 
     @PostMapping("/suscripcion")

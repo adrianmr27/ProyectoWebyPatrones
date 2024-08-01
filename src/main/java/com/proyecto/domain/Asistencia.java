@@ -14,7 +14,7 @@ public class Asistencia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; //la Tabla  Asisrtencia no tiene un id, por eso no lo encuentra
 
     @ManyToOne
     @JoinColumn(name = "matriculaid")
