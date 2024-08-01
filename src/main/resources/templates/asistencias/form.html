@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agregar/Editar Asistencia</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container my-4">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-6" th:text="${asistencia.id == null} ? 'Agregar Asistencia' : 'Editar Asistencia'"></h1>
+                <form th:action="@{${asistencia.id == null} ? '/asistencias/save' : '/asistencias/save'}" th:object="${asistencia}" method="post">
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" th:field="*{fecha}" id="fecha" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="matriculaid" class="form-label">Matrícula ID</label>
+                        <input type="text" class="form-control" th:field="*{matriculaid.id}" id="matriculaid" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

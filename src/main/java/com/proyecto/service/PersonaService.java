@@ -12,4 +12,9 @@ public interface PersonaService {
     public void save(Persona persona);
    
     public void delete(Persona persona);
+    
+    public Persona findByid(Long id);
+    
+    
+    
 }

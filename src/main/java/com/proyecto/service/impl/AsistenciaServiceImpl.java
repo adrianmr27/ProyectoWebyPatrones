@@ -23,7 +23,7 @@ public class AsistenciaServiceImpl implements AsistenciaService {
     @Override
     @Transactional(readOnly = true)
     public Asistencia getAsistencia(Asistencia asistencia) {
-        return asistenciaDao.findByFecha(asistencia.getFecha());
+        return asistenciaDao.findById(asistencia.getId()).orElse(null);
     }
 
     @Override
@@ -40,8 +40,13 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Asistencia> getAsistenciasPorMatricula(Long matriculaId) {
-        return asistenciaDao.findByMatriculaid(matriculaId);
+    public Asistencia getAsistenciaById(Long id) {
+        return asistenciaDao.findById(id).orElse(null); // Implementar esta línea
+    }
+
+    @Override
+    @Transactional
+    public void deleteAsistenciaById(Long id) {
+        asistenciaDao.deleteById(id);
     }
 }
-    

@@ -10,35 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/asistencias")          
+@RequestMapping("/asistencias")
 public class AsistenciaController {
 
     @Autowired
     private AsistenciaService asistenciaService;
 
-    @GetMapping("/registrar")
-    public String mostrarFormularioRegistro(Model model) {
-        model.addAttribute("asistencia", new Asistencia());
-        return "asistencias/registrar";
-    }
-
-    @PostMapping("/registrar")
-    public String registrarAsistencia(@ModelAttribute Asistencia asistencia) {
-        asistenciaService.save(asistencia);
-        return "redirect:/asistencias";
-    }
-
-    @GetMapping("/matricula/{matriculaId}")
-    public String obtenerAsistenciasPorMatricula(@PathVariable Long matriculaId, Model model) {
-        List<Asistencia> asistencias = asistenciaService.getAsistenciasPorMatricula(matriculaId);
-        model.addAttribute("asistencias", asistencias);
-        return "asistencias/listado";
-    }
-
-    @GetMapping
-    public String listarAsistencias(Model model) {
+    @GetMapping("/listado")
+    public String listAsistencias(Model model) {
         List<Asistencia> asistencias = asistenciaService.getAsistencias();
         model.addAttribute("asistencias", asistencias);
         return "asistencias/listado";
+    }
+
+    @GetMapping("/add")
+    public String addAsistenciaForm(Model model) {
+        model.addAttribute("asistencia", new Asistencia());
+        return "asistencias/form";
+    }
+
+    @PostMapping("/save")
+    public String saveAsistencia(@ModelAttribute("asistencia") Asistencia asistencia) {
+        asistenciaService.save(asistencia);
+        return "redirect:/asistencias/listado";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editAsistenciaForm(@PathVariable("id") Long id, Model model) {
+        Asistencia asistencia = asistenciaService.getAsistenciaById(id);
+        model.addAttribute("asistencia", asistencia);
+        return "asistencias/form";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAsistencia(@PathVariable("id") Long id) {
+        asistenciaService.deleteAsistenciaById(id);
+        return "redirect:/asistencias/list";
     }
 }

@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -22,8 +23,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
+
 
     /* Los siguientes métodos son para incorporar el tema de internacionalización en el proyecto */
 
@@ -61,10 +64,7 @@ public class ProjectConfig implements WebMvcConfigurer {
     }
 
     /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index").setViewName("index");
+
         registry.addViewController("/login").setViewName("login/login");
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
@@ -72,6 +72,7 @@ public class ProjectConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/errores/**","/error","/error/**",
                         "/carrito/**", "/pruebas/**", "/reportes/**",
@@ -102,6 +103,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 )
                 .formLogin((form) -> form
                 .loginPage("/login").permitAll())
+
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }
