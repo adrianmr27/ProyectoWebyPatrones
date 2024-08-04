@@ -61,106 +61,118 @@ public class EstudiantesController {
     }
 
     @PostMapping("/guardar")
-    public String estudianteGuardar(@ModelAttribute("estudiante") Estudiante estudiante,
+    public String crearEstudiante(@ModelAttribute("estudiante") Estudiante estudiante,
             @RequestParam("curso.id") Long cursoId,
             @RequestParam("periodo.id") Long periodoId,
             Model model) {
-        // Verificar si estamos editando o creando un nuevo estudiante
-        if (estudiante.getId() != null) {
-            // Verificación para la edición de un estudiante existente
-            Persona personaExistente = personaService.findByCorreoExcludingId(estudiante.getPersona().getCorreo(), estudiante.getPersona().getId());
-            if (personaExistente != null) {
-                // Manejar el error de duplicidad
-                model.addAttribute("error", "El correo electrónico ya está en uso por otra persona.");
-                List<Curso> cursos = cursoService.getCursos();
-                List<Periodo> periodos = periodoService.getPeriodos();
-                List<Estudiante> estudiantes = estudianteService.getEstudiantes();
-                model.addAttribute("cursos", cursos);
-                model.addAttribute("periodos", periodos);
-                model.addAttribute("estudiantes", estudiantes);
-                return "estudiante/modifica";
-            } else {
-                // Cargar la persona existente y actualizar sus datos
-                Persona persona = personaService.getPersona(estudiante.getPersona());
-                if (persona != null) {
-                    persona.setIdentificacion(estudiante.getPersona().getIdentificacion());
-                    persona.setNombre(estudiante.getPersona().getNombre());
-                    persona.setApellido1(estudiante.getPersona().getApellido1());
-                    persona.setApellido2(estudiante.getPersona().getApellido2());
-                    persona.setCorreo(estudiante.getPersona().getCorreo());
-                    persona.setTelefono(estudiante.getPersona().getTelefono());
-                    estudiante.setPersona(persona);
-                }
-            }
-        } else {
-            // Verificación para la creación de un nuevo estudiante
-            Persona personaExisteCorreo = personaService.findByCorreo(estudiante.getPersona().getCorreo());
-            if (personaExisteCorreo != null) {
-                // Manejar el error de duplicidad
-                model.addAttribute("error", "El correo electrónico ya está en uso.");
-                List<Curso> cursos = cursoService.getCursos();
-                List<Periodo> periodos = periodoService.getPeriodos();
-                List<Estudiante> estudiantes = estudianteService.getEstudiantes();
-                model.addAttribute("cursos", cursos);
-                model.addAttribute("periodos", periodos);
-                model.addAttribute("estudiantes", estudiantes);
-                model.addAttribute("showAddModal", true); // Mostrar el modal de agregar
-                model.addAttribute("showEditModal", false); // No mostrar el modal de editar
-                return "estudiante/listado";
-            }
+        // Verificar si el correo electrónico ya está en uso
+        Persona personaExisteCorreo = personaService.findByCorreo(estudiante.getPersona().getCorreo());
+        if (personaExisteCorreo != null) {
+            // Manejar el error de duplicidad
+            model.addAttribute("error", "El correo electrónico ya está en uso.");
+            List<Curso> cursos = cursoService.getCursos();
+            List<Periodo> periodos = periodoService.getPeriodos();
+            model.addAttribute("cursos", cursos);
+            model.addAttribute("periodos", periodos);
+            model.addAttribute("estudiante", estudiante);
+            model.addAttribute("showAddModal", true); // Mostrar el modal de agregar
+            return "estudiante/listado";
         }
 
-        // Guardar o actualizar la persona
+        // Guardar la persona y el estudiante
         personaService.save(estudiante.getPersona());
-
-        // Guardar o actualizar el estudiante
         estudianteService.save(estudiante);
 
-        // Actualizar o crear y guardar la matrícula
-        Matricula matricula = matriculaService.findByEstudianteId(estudiante.getId());
-        if (matricula == null) {
-            matricula = new Matricula();
-            matricula.setEstudiante(estudiante);
-        }
+        // Crear y guardar la matrícula
         Curso curso = cursoService.getCursoById(cursoId);
         Periodo periodo = periodoService.getPeriodoById(periodoId);
-        matricula.setCurso(curso);
-        matricula.setPeriodo(periodo);
+        Matricula matricula = new Matricula(estudiante, curso, periodo);
         matriculaService.save(matricula);
 
         return "redirect:/estudiantes/listado";
     }
 
-    @GetMapping("/eliminar/{idEstudiante}")
-    public String estudianteEliminar(@PathVariable("idEstudiante") Long idEstudiante) {
-        Estudiante estudiante = estudianteService.findById(idEstudiante);
-        if (estudiante != null) {
-            // Eliminar las matrículas del estudiante
-            List<Matricula> matriculas = estudiante.getMatriculas();
-            for (Matricula matricula : matriculas) {
-                matriculaService.delete(matricula);
-            }
+    @PostMapping("/actualizar")
+    public String actualizarEstudiante(@ModelAttribute("matricula") Matricula matricula, Model model) {
+        Estudiante estudiante = matricula.getEstudiante();
+        Persona persona = estudiante.getPersona();
 
-            estudianteService.delete(estudiante);
-            Persona persona = estudiante.getPersona();
-            if (persona != null) {
-                personaService.delete(persona);
+        // Verificar si estamos editando un estudiante existente
+        if (estudiante.getId() != null) {
+            // Verificación para la edición de un estudiante existente
+            Persona personaExistente = personaService.findByCorreoExcludingId(persona.getCorreo(), persona.getId());
+            if (personaExistente != null) {
+                // Manejar el error de duplicidad
+                model.addAttribute("error", "El correo electrónico ya está en uso por otra persona.");
+                List<Curso> cursos = cursoService.getCursos();
+                List<Periodo> periodos = periodoService.getPeriodos();
+                model.addAttribute("cursos", cursos);
+                model.addAttribute("periodos", periodos);
+                model.addAttribute("matricula", matricula);
+                return "estudiante/modifica";
+            } else {
+                // Cargar la persona existente y actualizar sus datos
+                personaExistente = estudiante.getPersona();
+                System.out.print(personaExistente);
+                if (personaExistente != null) {
+                    personaExistente.setIdentificacion(persona.getIdentificacion());
+                    personaExistente.setNombre(persona.getNombre());
+                    personaExistente.setApellido1(persona.getApellido1());
+                    personaExistente.setApellido2(persona.getApellido2());
+                    personaExistente.setCorreo(persona.getCorreo());
+                    personaExistente.setTelefono(persona.getTelefono());
+                    estudiante.setPersona(personaExistente);
+                }
             }
         }
+
+        // Guardar o actualizar la persona
+        personaService.save(persona);
+
+        // Guardar o actualizar el estudiante
+        estudianteService.save(estudiante);
+
+        // Buscar la matrícula existente del estudiante
+        Matricula matriculaExistente = matriculaService.findByEstudianteId(estudiante.getId());
+        if (matriculaExistente != null) {
+            // Actualizar la matrícula existente
+            matriculaExistente.setCurso(matricula.getCurso());
+            matriculaExistente.setPeriodo(matricula.getPeriodo());
+            matriculaService.save(matriculaExistente);
+        } else {
+            // Si no existe, se guarda la nueva matrícula
+            Curso curso = cursoService.getCursoById(matricula.getCurso().getId());
+            Periodo periodo = periodoService.getPeriodoById(matricula.getPeriodo().getId());
+            matricula.setCurso(curso);
+            matricula.setPeriodo(periodo);
+            matriculaService.save(matricula);
+        }
+
         return "redirect:/estudiantes/listado";
     }
 
     @GetMapping("/modificar/{idEstudiante}")
     public String estudianteModificar(@PathVariable("idEstudiante") Long idEstudiante, Model model) {
+        // Buscar el estudiante por su ID
         Estudiante estudiante = estudianteService.findById(idEstudiante);
+
         if (estudiante != null) {
+            // Buscar la matrícula asociada al estudiante
+            Matricula matricula = matriculaService.findByEstudianteId(idEstudiante);
+
+            // Obtener listas de todos los cursos y periodos disponibles
             List<Curso> cursos = cursoService.getCursos();
             List<Periodo> periodos = periodoService.getPeriodos();
+
+            // Agregar los atributos necesarios al modelo
             model.addAttribute("estudiante", estudiante);
             model.addAttribute("persona", estudiante.getPersona());
+            model.addAttribute("matricula", matricula);
             model.addAttribute("cursos", cursos);
             model.addAttribute("periodos", periodos);
         }
+
+        // Devolver la vista de modificación del estudiante
         return "estudiante/modifica";
     }
 }
