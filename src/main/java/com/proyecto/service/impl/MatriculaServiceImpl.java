@@ -26,6 +26,12 @@ public class MatriculaServiceImpl implements MatriculaService {
         return matriculaDao.findById(matricula.getId())
                 .orElse(null);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Matricula findByEstudianteId(Long estudianteId) {
+        return matriculaDao.findByEstudianteId(estudianteId);
+    }
 
     @Override
     @Transactional

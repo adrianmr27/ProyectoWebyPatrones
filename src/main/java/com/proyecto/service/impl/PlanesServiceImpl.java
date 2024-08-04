@@ -1,4 +1,3 @@
-
 package com.proyecto.service.impl;
 
 import com.proyecto.dao.PlanesDao;
@@ -24,7 +23,7 @@ public class PlanesServiceImpl implements PlanesService{
     @Override
     @Transactional(readOnly = true)
     public Planes getPlanes(Planes plan) {
-        return planesDao.findById(plan.getIdPlan())
+        return planesDao.findById(plan.getId())
                 .orElse(null);
     }
     

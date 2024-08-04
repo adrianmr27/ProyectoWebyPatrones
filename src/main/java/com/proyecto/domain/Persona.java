@@ -6,33 +6,31 @@ import lombok.Data;
 
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.JOINED) //Para herencias
 @Table(name = "persona")
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id") // id es manual 
-    private Long idPersona;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    private int identificacion;
     private String nombre;
     private String apellido1;
     private String apellido2;
     private String correo;
-    private Integer telefono;
-
+    private String telefono;
 
     public Persona() {
-        // Constructor vacío necesario para JPA
     }
 
-    public Persona(Long idPersona, String nombre, String apellido1, String apellido2, String correo, Integer telefono) {
-        this.idPersona = idPersona;
+    public Persona(int identificacion, String nombre, String apellido1, String apellido2, String correo, String telefono) {
+        this.identificacion = identificacion;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
         this.correo = correo;
         this.telefono = telefono;
     }
-
 }

@@ -9,6 +9,8 @@ public interface MatriculaService {
     
     public Matricula getMatricula(Matricula matricula);
     
+    public Matricula findByEstudianteId(Long estudianteId); // Método agregado
+    
     public void save(Matricula matricula);
    
     public void delete(Matricula matricula);

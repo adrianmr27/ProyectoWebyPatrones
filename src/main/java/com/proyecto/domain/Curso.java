@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="curso")
-
 public class Curso implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -16,22 +15,19 @@ public class Curso implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     private String nombre;
-    private int cantidadsesiones;
+    private int cantidadSesiones;
 
     @ManyToOne
-    @JoinColumn(name = "periodoid")
-    private Periodo periodo;
-
-    public Curso(String nombre, int cantidadsesiones, Periodo periodo) {
-        this.nombre = nombre;
-        this.cantidadsesiones = cantidadsesiones;
-        this.periodo = periodo;
-    }
+    @JoinColumn(name = "profesor_id")
+    private Profesor profesor;
 
     public Curso() {
     }
-    
-    
+
+    public Curso(String nombre, int cantidadSesiones, Profesor profesor) {
+        this.nombre = nombre;
+        this.cantidadSesiones = cantidadSesiones;
+        this.profesor = profesor;
+    }
 }

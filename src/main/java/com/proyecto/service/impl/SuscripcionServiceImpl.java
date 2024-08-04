@@ -1,4 +1,3 @@
-
 package com.proyecto.service.impl;
 
 import com.proyecto.dao.SuscripcionDao;
@@ -24,7 +23,7 @@ public class SuscripcionServiceImpl implements SuscripcionService {
     @Override
     @Transactional(readOnly = true)
     public Suscripcion getSuscripcion(Suscripcion suscripcion) {
-        return suscripcionDao.findById(suscripcion.getIdSuscripcion()).orElse(null);
+        return suscripcionDao.findById(suscripcion.getId()).orElse(null);
     }
 
     @Override

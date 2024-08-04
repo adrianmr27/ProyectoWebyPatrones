@@ -23,8 +23,20 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     @Transactional(readOnly = true)
     public Persona getPersona(Persona persona) {
-        return personaDao.findById(persona.getIdPersona())
+        return personaDao.findById(persona.getId())
                 .orElse(null);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Persona findByCorreoExcludingId(String correo, Long id) {
+        return personaDao.findByCorreoAndIdNot(correo, id);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Persona findByCorreo(String correo) {
+        return personaDao.findByCorreo(correo);
     }
 
     @Override

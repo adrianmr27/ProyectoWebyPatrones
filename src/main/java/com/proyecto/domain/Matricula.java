@@ -17,21 +17,23 @@ public class Matricula implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estudianteid")
+    @JoinColumn(name = "estudiante_id")
     private Estudiante estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "cursoid")
+    @JoinColumn(name = "curso_id")
     private Curso curso;
+
+    @ManyToOne
+    @JoinColumn(name = "periodo_id")
+    private Periodo periodo;
 
     public Matricula() {
     }
 
-    public Matricula(Estudiante estudiante, Curso curso) {
+    public Matricula(Estudiante estudiante, Curso curso, Periodo periodo) {
         this.estudiante = estudiante;
         this.curso = curso;
+        this.periodo = periodo;
     }
-
-    
-    
 }

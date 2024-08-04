@@ -9,6 +9,8 @@ public interface PeriodoService {
     
     public Periodo getPeriodo(Periodo periodo);
     
+    public Periodo getPeriodoById(Long id);
+    
     public void save(Periodo periodo);
    
     public void delete(Periodo periodo);

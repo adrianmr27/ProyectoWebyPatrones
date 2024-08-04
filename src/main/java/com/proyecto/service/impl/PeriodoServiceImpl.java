@@ -26,6 +26,13 @@ public class PeriodoServiceImpl implements PeriodoService {
         return periodoDao.findById(periodo.getId())
                 .orElse(null);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Periodo getPeriodoById(Long id) {
+        return periodoDao.findById(id)
+                .orElse(null);
+    }
 
     @Override
     @Transactional

@@ -4,6 +4,7 @@ import com.proyecto.domain.Profesor;
 import com.proyecto.domain.Persona;
 import com.proyecto.domain.Suscripcion;
 import com.proyecto.domain.Planes;
+import com.proyecto.domain.Rol;
 import com.proyecto.service.ProfesorService;
 import com.proyecto.service.PersonaService;
 import com.proyecto.service.SuscripcionService;
@@ -46,8 +47,12 @@ public class SuscripcionController {
     public String procesarSuscripcion(Profesor profesor, @RequestParam("planId") Long planId, Model model) {
         // Guardar la persona primero
         Persona persona = profesor.getPersona();
+        // Asignar el rol de profesor (id 2)
+        Rol rolProfesor = new Rol();
+        rolProfesor.setId(2);
+        profesor.setRol(rolProfesor);
+        // Guardar la persona
         personaService.save(persona);
-        
         // Guardar el profesor
         profesorService.save(profesor);
 

@@ -17,22 +17,23 @@ public class Profesor implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "personaid", referencedColumnName = "id") // referencia el campo id de persona para la herencia 
-    private Persona persona; //tipo persona
-    
-    @Column(name = "usuario", unique = true, nullable = false)
+    @JoinColumn(name = "persona_id")
+    private Persona persona;
+
     private String usuario;
-    
-    @Column(name = "clave", nullable = false)
     private String clave;
 
+    @ManyToOne
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
+
     public Profesor() {
-        // Constructor vacío necesario para JPA
     }
 
-    public Profesor(Persona persona, String usuario, String clave) { //contructor de profesor con persona
+    public Profesor(Persona persona, String usuario, String clave, Rol rol) {
         this.persona = persona;
         this.usuario = usuario;
         this.clave = clave;
+        this.rol = rol;
     }
 }

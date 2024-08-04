@@ -9,12 +9,11 @@ public interface PersonaService {
     
     public Persona getPersona(Persona persona);
     
+    public Persona findByCorreo(String correo); // Método agregado
+
+    public Persona findByCorreoExcludingId(String correo, Long id); // Método agregado
+    
     public void save(Persona persona);
    
     public void delete(Persona persona);
-    
-    public Persona findByid(Long id);
-    
-    
-    
 }

@@ -18,23 +18,25 @@ public class Estudiante implements Serializable {
     private Long id;
     
     @OneToOne
-    @JoinColumn(name = "personaid")
+    @JoinColumn(name = "persona_id")
     private Persona persona;
-    
+
+    private String estatus;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
     private List<Matricula> matriculas;
     
     public Estudiante() {
     }
 
-    public Estudiante(Persona persona) {
+    public Estudiante(Persona persona, String estatus) {
         this.persona = persona;
+        this.estatus = estatus;
     }
 
-    public Estudiante(Persona persona, List<Matricula> matriculas) {
+    public Estudiante(Persona persona, String estatus, List<Matricula> matriculas) {
         this.persona = persona;
+        this.estatus = estatus;
         this.matriculas = matriculas;
     }
-
-    
 }

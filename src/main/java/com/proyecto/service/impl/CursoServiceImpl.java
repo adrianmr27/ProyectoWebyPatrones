@@ -26,6 +26,13 @@ public class CursoServiceImpl implements CursoService {
         return cursoDao.findById(curso.getId())
                 .orElse(null);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Curso getCursoById(Long id) {
+        return cursoDao.findById(id)
+                .orElse(null);
+    }
 
     @Override
     @Transactional
@@ -38,4 +45,5 @@ public class CursoServiceImpl implements CursoService {
     public void delete(Curso curso) {
         cursoDao.delete(curso);
     }
+
 }
