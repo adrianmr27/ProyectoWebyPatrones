@@ -27,7 +27,7 @@ public class Matricula implements Serializable {
     @ManyToOne
     @JoinColumn(name = "periodo_id")
     private Periodo periodo;
-
+    
     public Matricula() {
     }
 

@@ -1,6 +1,7 @@
 package com.proyecto.service.impl;
 
 import com.proyecto.dao.MatriculaDao;
+import com.proyecto.domain.Curso;
 import com.proyecto.domain.Matricula;
 import com.proyecto.service.MatriculaService;
 import java.util.List;
@@ -28,6 +29,11 @@ public class MatriculaServiceImpl implements MatriculaService {
     }
     
     @Override
+    public List<Matricula> getMatriculasByCursoId(Long cursoId) {
+        return matriculaDao.findByCursoId(cursoId);
+    }
+    
+    @Override
     @Transactional(readOnly = true)
     public Matricula findByEstudianteId(Long estudianteId) {
         return matriculaDao.findByEstudianteId(estudianteId);
@@ -38,10 +44,16 @@ public class MatriculaServiceImpl implements MatriculaService {
     public void save(Matricula matricula) {
         matriculaDao.save(matricula);
     }
+    
 
     @Override
     @Transactional
     public void delete(Matricula matricula) {
         matriculaDao.delete(matricula);
+    }
+
+    @Override
+    public List<Matricula> findByCurso(Curso curso) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

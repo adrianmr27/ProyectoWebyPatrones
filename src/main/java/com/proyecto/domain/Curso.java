@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="curso")
+@Table(name = "curso")
 public class Curso implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,6 +21,9 @@ public class Curso implements Serializable {
     @ManyToOne
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
+    
+    @Transient
+    private Periodo periodo; // Campo transitorio para almacenar el período
 
     public Curso() {
     }
@@ -30,4 +33,6 @@ public class Curso implements Serializable {
         this.cantidadSesiones = cantidadSesiones;
         this.profesor = profesor;
     }
+
+
 }
