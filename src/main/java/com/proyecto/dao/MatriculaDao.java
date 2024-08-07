@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MatriculaDao extends JpaRepository<Matricula, Long> {
-    Matricula findByEstudianteId(Long estudianteId); // Método agregado
-   
+    List<Matricula> findByCurso(Curso curso);
     List<Matricula> findByCursoId(Long cursoId);
+    Matricula findByEstudianteId(Long estudianteId);
+    List<Matricula> findByPeriodo(Periodo periodo);
+   
 }

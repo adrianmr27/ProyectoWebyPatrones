@@ -8,6 +8,7 @@ import com.proyecto.service.CursoService;
 import com.proyecto.service.MatriculaService;
 import com.proyecto.service.PeriodoService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,35 +25,16 @@ public class CursoServiceImpl implements CursoService {
     @Autowired
     private PeriodoService periodoService;
     
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<Curso> getCursos() {
-//        return cursoDao.findAll();
-//    }
-
-    @Override
+ @Override
+    @Transactional(readOnly = true)
     public List<Curso> getCursos() {
-        List<Curso> cursos = cursoDao.findAll();
-        for (Curso curso : cursos) {
-            List<Matricula> matriculas = matriculaService.getMatriculasByCursoId(curso.getId());
-            if (!matriculas.isEmpty()) {
-                Periodo periodo = matriculas.get(0).getPeriodo();
-                curso.setPeriodo(periodo); // Asigna el periodo del primer registro de matricula
-            }
-        }
-        return cursos;
+        return cursoDao.findAll();
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Curso getCursoById(Long id) {
-        Curso curso = cursoDao.findById(id).orElse(null);
-        if (curso != null) {
-            List<Matricula> matriculas = matriculaService.findByCurso(curso);
-            // Establece el período en el curso si es necesario
-            // curso.setPeriodos(matriculas.stream().map(Matricula::getPeriodo).collect(Collectors.toList()));
-        }
-        return curso;
+        return cursoDao.findById(id).orElse(null);
     }
 
     @Override
@@ -63,13 +45,17 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     @Transactional
-    public void delete(Curso curso) {
-        cursoDao.delete(curso);
+    public void delete(Long id) {
+        cursoDao.deleteById(id);
     }
 
     @Override
-    public Curso getCurso(Curso curso) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @Transactional(readOnly = true)
+    public List<Curso> getCursosByPeriodo(Periodo periodo) {
+        List<Matricula> matriculas = matriculaService.findByPeriodo(periodo);
+        return matriculas.stream()
+                         .map(Matricula::getCurso)
+                         .distinct() // Elimina duplicados si hay
+                         .collect(Collectors.toList());
     }
-
 }

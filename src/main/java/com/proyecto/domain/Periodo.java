@@ -3,6 +3,7 @@ package com.proyecto.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 
 @Entity
@@ -17,10 +18,21 @@ public class Periodo implements Serializable {
     @Column(name = "id")
     private Long id;
 
+
+    @Column(name = "ano")
     private int ano;
+
+    @Column(name = "cuatrimestre")
     private int cuatrimestre;
+
+    @Column(name = "fecha_inicio")
     private Date fechaInicio;
+
+    @Column(name = "fecha_fin")
     private Date fechaFin;
+
+//    @OneToMany(mappedBy = "periodo")
+//    private List<Matricula> matriculas;
 
     public Periodo() {
     }

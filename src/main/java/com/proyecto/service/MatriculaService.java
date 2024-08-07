@@ -2,21 +2,32 @@ package com.proyecto.service;
 
 import com.proyecto.domain.Curso;
 import com.proyecto.domain.Matricula;
+import com.proyecto.domain.Periodo;
 import java.util.List;
 
 public interface MatriculaService {
     
-    public List<Matricula> getMatriculas();
+//    List<Matricula> getMatriculas();
+//    
+//    Matricula getMatricula(Matricula matricula);
+//    
+//    Matricula findByEstudianteId(Long estudianteId);
+//    
+//    void save(Matricula matricula);
+//    
+//    void delete(Matricula matricula);
+//    
+//    List<Matricula> findByCurso(Curso curso);
+//    
+//    List<Matricula> getMatriculasByCursoId(Long cursoId);
+//    
     
-    public Matricula getMatricula(Matricula matricula);
-    
-    public Matricula findByEstudianteId(Long estudianteId); // Método agregado
-    
-    public void save(Matricula matricula);
-   
-    public void delete(Matricula matricula);
-
-    public List<Matricula> findByCurso(Curso curso);
-
-    public List<Matricula> getMatriculasByCursoId(Long id);
+    List<Matricula> getMatriculas();
+    Matricula getMatricula(Long id);
+    List<Matricula> getMatriculasByCursoId(Long cursoId);
+    Matricula findByEstudianteId(Long estudianteId);
+    void save(Matricula matricula);
+    void delete(Matricula matricula);
+    List<Matricula> findByPeriodo(Periodo periodo); // Añadir este método
 }
+

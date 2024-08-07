@@ -25,57 +25,74 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
 @RequestMapping("/cursos")
 public class CursoController {
 
+    
     @Autowired
     private CursoService cursoService;
 
-//    @Autowired
-//    private PersonaService personaService;
-//
-//    @Autowired
-//    private CursoService cursoService;
-//
-    @Autowired
-    private MatriculaService matriculaService;
-//
     @Autowired
     private PeriodoService periodoService;
+    
+    @Autowired
+    private MatriculaService matriculaService;
 
-    @GetMapping("/listado")
+   @GetMapping("/listado")
     public String mostrarCursos(Model model) {
-        List<Curso> cursos = cursoService.getCursos();
-        model.addAttribute("cursos", cursos);
+        model.addAttribute("cursos", cursoService.getCursos());
+        model.addAttribute("curso", new Curso());
         return "curso/listado";
     }
 
-    @GetMapping("/nuevo")
-    public String nuevoCursoForm(Model model) {
-        model.addAttribute("curso", new Curso());
-        return "curso-form";
-    }
-
     @PostMapping("/guardar")
-    public String guardarCurso(@ModelAttribute("curso") Curso curso) {
+    public String guardarCurso(@ModelAttribute("curso") Curso curso,
+                               RedirectAttributes redirectAttributes) {
         cursoService.save(curso);
+        redirectAttributes.addFlashAttribute("message", "Curso guardado exitosamente");
         return "redirect:/cursos/listado";
     }
 
-    @GetMapping("/editar/{id}")
-    public String editarCursoForm(@PathVariable("id") Long id, Model model) {
-        Curso curso = cursoService.getCursoById(id);
-        model.addAttribute("curso", curso);
-        return "curso-form";
+    @GetMapping("/modificar/{idCurso}")
+    public String modificarCurso(@PathVariable("idCurso") Long idCurso, Model model) {
+        Curso curso = cursoService.getCursoById(idCurso);
+        if (curso != null) {
+            model.addAttribute("curso", curso);
+            model.addAttribute("periodos", periodoService.getPeriodos());
+        }
+        return "curso/modificar";
     }
 
-    @GetMapping("/eliminar/{id}")
-    public String eliminarCurso(@PathVariable("id") Long id) {
-        Curso curso = cursoService.getCursoById(id);
-        cursoService.delete(curso);
+    @PostMapping("/actualizar")
+    public String actualizarCurso(@ModelAttribute("curso") Curso curso,
+                                  RedirectAttributes redirectAttributes) {
+        cursoService.save(curso);
+        redirectAttributes.addFlashAttribute("message", "Curso actualizado exitosamente");
+        return "redirect:/cursos/listado";
+    }
+
+    @PostMapping("/asociar-periodo")
+    public String asociarPeriodoACurso(@RequestParam("cursoId") Long cursoId,
+                                       @RequestParam("periodoId") Long periodoId,
+                                       RedirectAttributes redirectAttributes) {
+        Curso curso = cursoService.getCursoById(cursoId);
+        Periodo periodo = periodoService.getPeriodoById(periodoId);
+
+        if (curso != null && periodo != null) {
+            Matricula matricula = new Matricula();
+            matricula.setCurso(curso);
+            matricula.setPeriodo(periodo);
+            matriculaService.save(matricula);
+
+            redirectAttributes.addFlashAttribute("message", "Período asociado exitosamente al curso");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Curso o período no encontrados");
+        }
+
         return "redirect:/cursos/listado";
     }
 }

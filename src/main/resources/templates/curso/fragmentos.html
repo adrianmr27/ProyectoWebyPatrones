@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
@@ -9,7 +9,7 @@
 
     <body>
 
-        <!-- 1 Sección para crear el botón de agregar, llamará a una ventana modal -->
+         1 Sección para crear el botón de agregar, llamará a una ventana modal 
         <section th:fragment="botonesAgregar" class="container-lg py-4 mx-auto">
             <div class="container mt-4">
                 <div class="row">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </section>
-        <!-- 2 Fragmento para agregar curso, es la ventana modal -->
+         2 Fragmento para agregar curso, es la ventana modal 
         <section th:fragment="agregarCurso">
             <div id="agregarCurso" 
                  class="modal fade" 
@@ -62,12 +62,12 @@
                                     <input type="number" class="form-control" id="nombre" name="curso.nombre" required="true"/>
                                 </div>
 
-                                <!--                                <div class="mb-3">
+                                                                <div class="mb-3">
                                                                     <label for="curso">Cursos</label>
                                                                     <select class="form-control" id="curso" name="curso.id" required="true">
                                                                         <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
                                                                     </select>
-                                                                </div>-->
+                                                                </div>
                                 <div class="mb-3">
                                     <label for="periodo">Período</label>
                                     <select class="form-control" id="periodo" name="periodo.id" required="true">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </section>
-        <!-- 3 Fragmento para modificar curso -->
+         3 Fragmento para modificar curso 
         <section th:fragment="editarCurso">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -112,12 +112,12 @@
                                                        th:field="*{curso.nombre}" required="true">
                                             </div>
 
-                                            <!--                                                <div class="mb-3">
+                                                                                            <div class="mb-3">
                                                                                                 <label for="curso">Cursos</label>
                                                                                                 <select class="form-control" id="curso" name="curso.id" required="true">
                                                                                                     <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
                                                                                                 </select>
-                                                                                            </div>-->
+                                                                                            </div>
                                             <div class="mb-3">
                                                 <label for="periodo">Período</label>
                                                 <select class="form-control" id="periodo" name="periodo.id" required="true">
@@ -134,7 +134,7 @@
             </div>
         </section>
 
-        <!-- 4 Fragmento que se utiliza en el fragmento anterior -->
+         4 Fragmento que se utiliza en el fragmento anterior 
         <section th:fragment="botonesEditar">
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
@@ -159,7 +159,7 @@
         </section>
 
         
-        <!--listar los cursos-->
+        listar los cursos
         <section th:fragment="listadoCursos" id="cursos">
             <div class="container">
                 <div class="row">
@@ -221,4 +221,217 @@
     </script>
 
     </body>
+</html>-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{layout/plantilla2 :: head}">
+    <title>Cursos</title>
+</head>
+
+<body>
+
+    <!-- Fragmento para el botón de agregar curso -->
+    <section th:fragment="botonesAgregar" class="container-lg py-4 mx-auto">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col">
+                    <ul class="list-inline d-flex justify-content-between align-items-center">
+                        <li class="list-inline-item">
+                            <h3 class="mr-3">Gestión de Clases</h3>
+                        </li>
+                        <li class="list-inline-item">
+                            <h4>Cursos: <strong th:text="${cursos.size()}">0</strong></h4>
+                        </li>
+                        <li class="list-inline-item">
+                            <button type="button" 
+                                    class="btn btn-primary" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#agregarCurso">
+                                Agregar Curso
+                            </button>
+                        </li>
+                        <li class="list-inline-item ml-auto">
+                            <form class="form-inline" th:action="@{/buscarCurso}" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="busqueda" name="q" placeholder="Buscar Curso">
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragmento para agregar curso, es la ventana modal -->
+    <section th:fragment="agregarCurso">
+        <div id="agregarCurso" 
+             class="modal fade" 
+             tabindex="-1" 
+             aria-labelledby="exampleModalLabel" 
+             aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{/cursos/guardar}" method="POST" class="was-validated" enctype="multipart/form-data" th:object="${curso}">
+                        <div class="modal-body">
+                            <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
+                            <div class="mb-3">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required="true"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="periodo">Período</label>
+                                <select class="form-control" id="periodo" name="periodo.id" required="true">
+                                    <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragmento para modificar curso -->
+    <section th:fragment="editarCurso">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form method="POST" 
+                      th:action="@{/cursos/guardar}" 
+                      th:object="${curso}" 
+                      class="was-validated" 
+                      enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}"/>
+                    <section th:replace="~{curso/fragmentos :: botonesEditar}"/>
+                    <div id="details">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Actualizar Curso</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
+                                            <div class="mb-3">
+                                                <label for="nombre">Nombre del curso</label>
+                                                <input type="text" class="form-control" 
+                                                       id="nombre" name="nombre"
+                                                       th:field="*{nombre}" required="true">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="periodo">Período</label>
+                                                <select class="form-control" id="periodo" name="periodo.id" required="true">
+                                                    <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fragmento que se utiliza en el fragmento anterior -->
+    <section th:fragment="botonesEditar">
+        <div class="container py-4 mb-4 bg-light">
+            <div class="row">
+                <div class="col-md-4 d-grid">
+                    <a th:href="@{/cursos/listado}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Regresar
+                    </a>
+                </div>
+                <div class="col-md-4 d-grid">                                
+                    <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}"
+                       class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </div>
+                <div class="col-md-4 d-grid">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listado de los cursos -->
+    <section th:fragment="listadoCursos" id="cursos">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Listado Cursos</h4>
+                        </div>
+                        <div th:if="${cursos != null && !cursos.isEmpty()}">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre del curso</th>
+                                        <th>Periodo</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="curso : ${cursos}" class="align-middle">
+                                        <td th:text="${curso.nombre}"></td>
+                                        <td th:text="${curso.matriculas != null && !curso.matriculas.isEmpty() ? curso.matriculas[0].periodo.ano + ' - Cuatrimestre ' + curso.matriculas[0].periodo.cuatrimestre : 'Período no disponible'}"></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a th:href="@{/cursos/editar/{id}(id=${curso.id})}" class="btn btn-primary">Modificar</a>
+                                                <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}" class="btn btn-danger">Eliminar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div th:if="${cursos == null || cursos.isEmpty()}">
+                            <div class="alert alert-info">No hay cursos registrados.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            // Abrir modal de agregar si hay un error
+            if (/*[[${showAddModal}]]*/ false) {
+                $('#agregarCurso').modal('show');
+            }
+            $('#busqueda').on('input', function () {
+                var filtro = $(this).val().toLowerCase();
+                $('tbody tr').each(function () {
+                    var nombreCurso = $(this).find('td:first').text().toLowerCase();
+                    if (nombreCurso.includes(filtro)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
 </html>
