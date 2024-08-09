@@ -12,4 +12,6 @@ public interface ProfesorService {
     public void save(Profesor profesor);
    
     public void delete(Profesor profesor);
+    
+    List<Profesor> getAllProfesores();
 }

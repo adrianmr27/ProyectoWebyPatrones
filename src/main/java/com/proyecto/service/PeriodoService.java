@@ -14,4 +14,6 @@ public interface PeriodoService {
     public void save(Periodo periodo);
    
     public void delete(Periodo periodo);
+    
+    List<Periodo> getAllPeriodos();
 }

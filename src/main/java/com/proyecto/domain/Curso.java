@@ -25,10 +25,11 @@ public class Curso implements Serializable {
 
     @Column(name = "profesor_id")
     private Long profesorId; // Asumiendo que Profesor es otro objeto o simplemente una relación
+    
 
     @OneToMany(mappedBy = "curso")
     private List<Matricula> matriculas;
-    
+//    
 //    @ManyToOne
 //    @JoinColumn(name = "periodo_id")
 //    private Periodo periodo; // Relación con Periodo

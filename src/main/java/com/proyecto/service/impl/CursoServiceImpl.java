@@ -1,9 +1,12 @@
 package com.proyecto.service.impl;
 
 import com.proyecto.dao.CursoDao;
+import com.proyecto.dao.MatriculaDao;
+import com.proyecto.dao.ProfesorDao;
 import com.proyecto.domain.Curso;
 import com.proyecto.domain.Matricula;
 import com.proyecto.domain.Periodo;
+import com.proyecto.domain.Profesor;
 import com.proyecto.service.CursoService;
 import com.proyecto.service.MatriculaService;
 import com.proyecto.service.PeriodoService;
@@ -21,11 +24,17 @@ public class CursoServiceImpl implements CursoService {
 
     @Autowired
     private MatriculaService matriculaService;
-    
+
     @Autowired
     private PeriodoService periodoService;
-    
- @Override
+
+    @Autowired
+    private ProfesorDao profesorDao; // Inyecta el DAO de Profesor
+
+    @Autowired
+    private MatriculaDao matriculaDao; // Inyecta el DAO de Matricula
+
+    @Override
     @Transactional(readOnly = true)
     public List<Curso> getCursos() {
         return cursoDao.findAll();
@@ -54,8 +63,36 @@ public class CursoServiceImpl implements CursoService {
     public List<Curso> getCursosByPeriodo(Periodo periodo) {
         List<Matricula> matriculas = matriculaService.findByPeriodo(periodo);
         return matriculas.stream()
-                         .map(Matricula::getCurso)
-                         .distinct() // Elimina duplicados si hay
-                         .collect(Collectors.toList());
+                .map(Matricula::getCurso)
+                .distinct() // Elimina duplicados si hay
+                .collect(Collectors.toList());
     }
+
+    //nuevos metodos profesor
+    @Override
+    @Transactional(readOnly = true)
+    public List<Curso> getCursosByProfesorId(Long profesorId) {
+        return cursoDao.findByProfesorId(profesorId);
+    }
+
+    @Transactional
+    public void saveCursoConProfesor(Curso curso, Long profesorId) {
+        curso.setProfesorId(profesorId); // Establece el ID del profesor en el curso
+        cursoDao.save(curso);
+    }
+
+    @Override
+    @Transactional
+    public void asociarPeriodoACurso(Long cursoId, Long periodoId) {
+        Curso curso = cursoDao.findById(cursoId).orElse(null);
+        Periodo periodo = periodoService.getPeriodoById(periodoId);
+
+        if (curso != null && periodo != null) {
+            Matricula matricula = new Matricula();
+            matricula.setCurso(curso);
+            matricula.setPeriodo(periodo);
+            matriculaService.save(matricula);
+        }
+    }
+
 }

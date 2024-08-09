@@ -45,4 +45,10 @@ public class PeriodoServiceImpl implements PeriodoService {
     public void delete(Periodo periodo) {
         periodoDao.delete(periodo);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<Periodo> getAllPeriodos() {
+        return periodoDao.findAll();
+    }
 }
