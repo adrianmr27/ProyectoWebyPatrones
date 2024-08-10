@@ -52,9 +52,14 @@ public class CursoServiceImpl implements CursoService {
         cursoDao.save(curso);
     }
 
+//    @Override
+//    @Transactional
+//    public void delete(Long id) {
+//        cursoDao.deleteById(id);
+//    }
+    
     @Override
-    @Transactional
-    public void delete(Long id) {
+    public void eliminarCursoPorId(Long id) { // Implementación del método de eliminación
         cursoDao.deleteById(id);
     }
 
@@ -81,18 +86,18 @@ public class CursoServiceImpl implements CursoService {
         cursoDao.save(curso);
     }
 
-    @Override
-    @Transactional
-    public void asociarPeriodoACurso(Long cursoId, Long periodoId) {
-        Curso curso = cursoDao.findById(cursoId).orElse(null);
-        Periodo periodo = periodoService.getPeriodoById(periodoId);
-
-        if (curso != null && periodo != null) {
-            Matricula matricula = new Matricula();
-            matricula.setCurso(curso);
-            matricula.setPeriodo(periodo);
-            matriculaService.save(matricula);
-        }
-    }
+//    @Override
+//    @Transactional
+//    public void asociarPeriodoACurso(Long cursoId, Long periodoId) {
+//        Curso curso = cursoDao.findById(cursoId).orElse(null);
+//        Periodo periodo = periodoService.getPeriodoById(periodoId);
+//
+//        if (curso != null && periodo != null) {
+//            Matricula matricula = new Matricula();
+//            matricula.setCurso(curso);
+//            matricula.setPeriodo(periodo);
+//            matriculaService.save(matricula);
+//        }
+//    }
 
 }

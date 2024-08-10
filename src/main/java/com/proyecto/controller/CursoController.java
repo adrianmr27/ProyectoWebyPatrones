@@ -136,53 +136,51 @@ public class CursoController {
         model.addAttribute("cursos", cursoService.getCursos());
         model.addAttribute("curso", new Curso());
         model.addAttribute("profesores", profesorService.getProfesores());
-        model.addAttribute("periodos", periodoService.getPeriodos());
         return "curso/listado";
     }
 
     @PostMapping("/guardar")
     public String guardarCurso(@ModelAttribute("curso") Curso curso,
-            @RequestParam("profesor.id") Long profesorId,
-            @RequestParam("periodo.id") Long periodoId,
+            @RequestParam("profesorId") Long profesorId,
             RedirectAttributes redirectAttributes) {
         if (curso.getCantidadSesiones() == null) {
             curso.setCantidadSesiones(4); // Establecer cantidad_sesiones en 4 si es nulo
         }
 
-        cursoService.saveCursoConProfesor(curso, profesorId); // Guardar curso con profesor
-
-        // Crear y guardar la asociación en la tabla Matricula
-        Matricula matricula = new Matricula();
-        matricula.setCurso(curso);
-        matricula.setPeriodo(periodoService.getPeriodoById(periodoId));
-        matriculaService.save(matricula);
-
+        cursoService.saveCursoConProfesor(curso, profesorId);
         redirectAttributes.addFlashAttribute("message", "Curso guardado exitosamente");
         return "redirect:/cursos/listado";
     }
 
-    @GetMapping("/modificar/{idCurso}")
+    @GetMapping("/modifica/{idCurso}")
     public String modificarCurso(@PathVariable("idCurso") Long idCurso, Model model) {
         Curso curso = cursoService.getCursoById(idCurso);
         if (curso != null) {
-            List<Periodo> periodos = periodoService.getPeriodos();
-            List<Profesor> profesores = profesorService.getProfesores();
-
             model.addAttribute("curso", curso);
-            model.addAttribute("periodos", periodos);
-            model.addAttribute("profesores", profesores);
+            model.addAttribute("profesores", profesorService.getProfesores());
         }
-        return "curso/modificar";
+        return "curso/modifica";
     }
 
     @PostMapping("/actualizar")
     public String actualizarCurso(@ModelAttribute("curso") Curso curso,
             @RequestParam("profesorId") Long profesorId,
-            @RequestParam("periodoId") Long periodoId,
             RedirectAttributes redirectAttributes) {
         cursoService.saveCursoConProfesor(curso, profesorId);
-        cursoService.asociarPeriodoACurso(curso.getId(), periodoId);
         redirectAttributes.addFlashAttribute("message", "Curso actualizado exitosamente");
         return "redirect:/cursos/listado";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarCurso(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        cursoService.eliminarCursoPorId(id);
+        redirectAttributes.addFlashAttribute("message", "Curso eliminado exitosamente");
+        return "redirect:/cursos/listado";
+    }
+
+    @GetMapping("/listado2")
+    public String mostrarListado2(Model model) {
+        model.addAttribute("cursos", cursoService.getCursos());
+        return "curso/listado2";  // Asegúrate de que este sea el nombre correcto del archivo HTML
     }
 }

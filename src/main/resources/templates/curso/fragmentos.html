@@ -280,14 +280,8 @@
                                     <input type="text" class="form-control" id="nombre" name="nombre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="periodo">Período</label>
-                                    <select class="form-control" id="periodo" name="periodo.id" required="true">
-                                        <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
                                     <label for="profesorId">Profesor</label>
-                                    <select class="form-control" id="profesorId" name="profesor.id" required="true">
+                                    <select class="form-control" id="profesorId" name="profesorId" required="true">
                                         <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.id}"></option>
                                     </select>
                                 </div>
@@ -296,6 +290,75 @@
                                 <button class="btn btn-primary" type="submit">Guardar</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--        Fragmento para modificar curso -->
+        <section th:fragment="editarCurso">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST" 
+                          th:action="@{/cursos/guardar}" 
+                          th:object="${curso}" 
+                          class="was-validated" 
+                          enctype="multipart/form-data">
+                        <input type="hidden" th:field="*{id}"/>
+                        <section th:replace="~{curso/fragmentos :: botonesEditar}"/>
+                        <div id="details">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Actualizar Curso</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
+                                                <div class="mb-3">
+                                                    <label for="nombre">Nombre del curso</label>
+                                                    <input type="text" class="form-control" 
+                                                           id="nombre" name="nombre"
+                                                           th:field="*{nombre}" required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="profesorId">Profesor</label>
+                                                    <select class="form-control" id="profesorId" name="profesorId" required="true">
+                                                        <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.id}" th:selected="${profesor.id == curso.profesorId ? 'selected' : ''}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!--        Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/cursos/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Regresar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Guardar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -315,7 +378,6 @@
                                     <thead>
                                         <tr>
                                             <th>Nombre del Curso</th>
-                                            <th>Período</th>
                                             <th>Profesor</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -323,12 +385,20 @@
                                     <tbody>
                                         <tr th:each="curso : ${cursos}" class="align-middle">
                                             <td th:text="${curso.nombre}"></td>
-                                            <td th:text="${curso.matriculas != null && !curso.matriculas.isEmpty() ? curso.matriculas[0].periodo.ano + ' - Cuatrimestre ' + curso.matriculas[0].periodo.cuatrimestre : 'Período no disponible'}"></td>
                                             <td th:text="${curso.profesorId}"></td>
                                             <td>
-                                                <div class="btn-group">
-                                                    <a th:href="@{/cursos/modificar/{idCurso}(idCurso=${curso.id})}" class="btn btn-primary">Modificar</a>
-                                                    <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}" class="btn btn-danger">Eliminar</a>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="accionesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Acciones
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="accionesDropdown">
+                                                        <li>
+                                                            <a class="dropdown-item" th:href="@{/cursos/modifica/{idCurso}(idCurso=${curso.id})}">Modificar</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item text-danger" th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Elimina</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -344,5 +414,33 @@
             </div>
         </section>
 
+
+        <!-- Listado de los cursos2 -->
+        <section th:fragment="listadoCursos2" id="cursos">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Listado de Cursos</h4>
+                            </div>
+                            <div th:if="${cursos != null && !cursos.isEmpty()}">
+                                <label for="curso">Seleccionar Curso</label>
+                                <select class="form-control" id="curso" name="cursoId" required>
+                                    <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
+                                </select>
+
+                                <button type="submit" class="btn btn-primary mt-2">Calificar</button>
+                                <button type="submit" class="btn btn-primary mt-2">Asistencia</button>
+                            </div>
+
+                            <div th:if="${cursos == null || cursos.isEmpty()}">
+                                <p>No hay cursos disponibles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
