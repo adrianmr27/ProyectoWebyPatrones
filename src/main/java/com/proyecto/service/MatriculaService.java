@@ -7,20 +7,7 @@ import java.util.List;
 
 public interface MatriculaService {
     
-//    List<Matricula> getMatriculas();
-//    
-//    Matricula getMatricula(Matricula matricula);
-//    
-//    Matricula findByEstudianteId(Long estudianteId);
-//    
-//    void save(Matricula matricula);
-//    
-//    void delete(Matricula matricula);
-//    
-//    List<Matricula> findByCurso(Curso curso);
-//    
-//    List<Matricula> getMatriculasByCursoId(Long cursoId);
-//    
+
     
     List<Matricula> getMatriculas();
     Matricula getMatricula(Long id);

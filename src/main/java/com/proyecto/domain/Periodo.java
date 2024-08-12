@@ -31,9 +31,6 @@ public class Periodo implements Serializable {
     @Column(name = "fecha_fin")
     private Date fechaFin;
 
-//    @OneToMany(mappedBy = "periodo")
-//    private List<Matricula> matriculas;
-
     public Periodo() {
     }
 

@@ -1,39 +1,38 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <head th:replace="~{layout/plantilla2 :: head}">
-        <title>Cursos</title>
+        <title>Periodos</title>
     </head>
 
     <body>
 
-        <!-- Fragmento para el botón de agregar curso -->
-        <section th:fragment="botonesAgregar" class="container-lg py-4 mx-auto">
+        <!-- Fragmento para el botón de agregar periodo -->
+        <section th:fragment="botonesAgregarPeriodo" class="container-lg py-4 mx-auto">
             <div class="container mt-4">
                 <div class="row">
                     <div class="col">
                         <ul class="list-inline d-flex justify-content-between align-items-center">
                             <li class="list-inline-item">
-                                <h3 class="mr-3">Gestión de Cursos</h3>
+                                <h3 class="mr-3">Gestión de Periodos</h3>
                             </li>
                             <li class="list-inline-item">
-                                <h4>Cursos: <strong th:text="${cursos.size()}">0</strong></h4>
+                                <h4>Periodos: <strong th:text="${periodos.size()}">0</strong></h4>
                             </li>
                             <li class="list-inline-item">
                                 <button type="button" 
                                         class="btn btn-primary" 
                                         data-bs-toggle="modal" 
-                                        data-bs-target="#agregarCurso">
-                                    Agregar Curso
+                                        data-bs-target="#agregarPeriodo">
+                                    Agregar Periodo
                                 </button>
                             </li>
                             <li class="list-inline-item ml-auto">
-                                <form class="form-inline" th:action="@{/buscarCurso}" method="get">
+                                <form class="form-inline" th:action="@{/buscarPeriodo}" method="get">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="busqueda" name="q" placeholder="Buscar Curso">
+                                        <input type="text" class="form-control" id="busqueda" name="q" placeholder="Buscar Periodo">
                                     </div>
                                 </form>
                             </li>
@@ -43,9 +42,9 @@
             </div>
         </section>
 
-        <!-- Fragmento para agregar curso, es la ventana modal -->
-        <section th:fragment="agregarCurso">
-            <div id="agregarCurso" 
+        <!-- Fragmento para agregar periodo, es la ventana modal -->
+        <section th:fragment="agregarPeriodo">
+            <div id="agregarPeriodo" 
                  class="modal fade" 
                  tabindex="-1" 
                  aria-labelledby="exampleModalLabel" 
@@ -53,21 +52,27 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Agregar Periodo</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form th:action="@{/cursos/guardar}" method="POST" class="was-validated" enctype="multipart/form-data" th:object="${curso}">
+                        <form th:action="@{/periodos/guardar}" method="POST" class="was-validated" enctype="multipart/form-data" th:object="${periodo}">
                             <div class="modal-body">
                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" required="true"/>
+                                    <label for="ano">Año</label>
+                                    <input type="number" class="form-control" id="ano" name="ano" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="profesorId">Profesor</label>
-                                    <select class="form-control" id="profesorId" name="profesorId" required="true">
-                                        <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.id}"></option>
-                                    </select>
+                                    <label for="cuatrimestre">Cuatrimestre</label>
+                                    <input type="number" class="form-control" id="cuatrimestre" name="cuatrimestre" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaInicio">Fecha de Inicio</label>
+                                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaFin">Fecha de Fin</label>
+                                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required="true"/>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -79,39 +84,45 @@
             </div>
         </section>
 
-        <!--        Fragmento para modificar curso -->
-        <section th:fragment="editarCurso">
+        <!-- Fragmento para modificar periodo -->
+        <section th:fragment="editarPeriodo">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST" 
-                          th:action="@{/cursos/guardar}" 
-                          th:object="${curso}" 
+                          th:action="@{/periodos/guardar}" 
+                          th:object="${periodo}" 
                           class="was-validated" 
                           enctype="multipart/form-data">
                         <input type="hidden" th:field="*{id}"/>
-                        <section th:replace="~{curso/fragmentos :: botonesEditar}"/>
+                        <section th:replace="~{periodo/fragmentos :: botonesEditar}"/>
                         <div id="details">
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4>Actualizar Curso</h4>
+                                                <h4>Actualizar Periodo</h4>
                                             </div>
                                             <div class="card-body">
                                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                                 <div class="mb-3">
-                                                    <label for="nombre">Nombre del curso</label>
-                                                    <input type="text" class="form-control" 
-                                                           id="nombre" name="nombre"
-                                                           th:field="*{nombre}" required="true">
+                                                    <label for="ano">Año</label>
+                                                    <input type="number" class="form-control" 
+                                                           id="ano" name="ano"
+                                                           th:field="*{ano}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="profesorId">Profesor</label>
-                                                    <select class="form-control" id="profesorId" name="profesorId" required="true">
-                                                        <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.id}" th:selected="${profesor.id == curso.profesorId ? 'selected' : ''}"></option>
-                                                    </select>
+                                                    <label for="cuatrimestre">Cuatrimestre</label>
+                                                    <input type="number" class="form-control" id="cuatrimestre" name="cuatrimestre" required="true" th:field="*{cuatrimestre}"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="fechaInicio">Fecha de Inicio</label>
+                                                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required="true" th:field="*{fechaInicio}"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="fechaFin">Fecha de Fin</label>
+                                                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required="true" th:field="*{fechaFin}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,17 +135,17 @@
             </div>
         </section>
 
-        <!--        Fragmento que se utiliza en el fragmento anterior -->
+        <!-- Fragmento que se utiliza en el fragmento anterior -->
         <section th:fragment="botonesEditar">
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/cursos/listado}" class="btn btn-primary">
+                        <a th:href="@{/periodos/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> Regresar
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}"
+                        <a th:href="@{/periodos/eliminar/{id}(id=${periodo.id})}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> Eliminar
                         </a>
@@ -148,28 +159,32 @@
             </div>
         </section>
 
-        <!-- Listado de los cursos -->
-        <section th:fragment="listadoCursos" id="cursos">
+        <!-- Listado de los periodos -->
+        <section th:fragment="listadoPeriodos" id="periodos">
             <div class="container">
                 <div class="row">
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Listado de Cursos</h4>
+                                <h4>Listado de Periodos</h4>
                             </div>
-                            <div th:if="${cursos != null && !cursos.isEmpty()}">
+                            <div th:if="${periodos != null && !periodos.isEmpty()}">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nombre del Curso</th>
-                                            <th>Profesor</th>
+                                            <th>Año</th>
+                                            <th>Cuatrimestre</th>
+                                            <th>Fecha de Inicio</th>
+                                            <th>Fecha de Fin</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="curso : ${cursos}" class="align-middle">
-                                            <td th:text="${curso.nombre}"></td>
-                                            <td th:text="${curso.profesorId}"></td>
+                                        <tr th:each="periodo : ${periodos}" class="align-middle">
+                                            <td th:text="${periodo.ano}"></td>
+                                            <td th:text="${periodo.cuatrimestre}"></td>
+                                            <td th:text="${#dates.format(periodo.fechaInicio, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${#dates.format(periodo.fechaFin, 'yyyy-MM-dd')}"></td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="accionesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -177,10 +192,10 @@
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="accionesDropdown">
                                                         <li>
-                                                            <a class="dropdown-item" th:href="@{/cursos/modifica/{idCurso}(idCurso=${curso.id})}">Modificar</a>
+                                                            <a class="dropdown-item" th:href="@{/periodos/modifica/{idPeriodo}(idPeriodo=${periodo.id})}">Modificar</a>
                                                         </li>
                                                         <li>
-                                                            <a class="dropdown-item text-danger" th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Elimina</a>
+                                                            <a class="dropdown-item text-danger" th:href="@{/periodos/eliminar/{id}(id=${periodo.id})}">Eliminar</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -189,37 +204,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div th:if="${cursos == null || cursos.isEmpty()}">
-                                <p>No hay cursos disponibles.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Listado de los cursos2 -->
-        <section th:fragment="listadoCursos2" id="cursos">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Listado de Cursos</h4>
-                            </div>
-                            <div th:if="${cursos != null && !cursos.isEmpty()}">
-                                <label for="curso">Seleccionar Curso</label>
-                                <select class="form-control" id="curso" name="cursoId" required>
-                                    <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
-                                </select>
-
-                                <button type="submit" class="btn btn-primary mt-2">Calificar</button>
-                                <button type="submit" class="btn btn-primary mt-2">Asistencia</button>
-                            </div>
-
-                            <div th:if="${cursos == null || cursos.isEmpty()}">
-                                <p>No hay cursos disponibles.</p>
+                            <div th:if="${periodos == null || periodos.isEmpty()}" class="alert alert-warning" role="alert">
+                                No hay periodos disponibles.
                             </div>
                         </div>
                     </div>

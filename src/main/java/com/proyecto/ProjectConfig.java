@@ -98,6 +98,12 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/cursos/eliminar/**","/cursos/modifica/**","/cursos/editar/**",
                         "/estudiantes/nuevo","/estudiantes/guardar",
                         "/estudiantes/eliminar/**","/estudiantes/modificar/**",
+                        "/periodos/nuevo","/periodos/guardar",
+                        "/periodos/eliminar/**","/periodos/modificar/**", "/periodos/modifica/**",
+                        "/periodos**","/periodos/listado",
+                        "/matriculas/nuevo","/matriculas/guardar",
+                        "/matriculas/eliminar/**","/matriculas/modificar/**", "/matriculas/modifica/**",
+                        "/matriculas**","/matriculas/listado",
                         "/js/**", "/webjars/**","/tamplates","templates/**", "/estudiantes/actualizar","/estudiantes/actualizar/**",
                         "/estudiantes/modificar/**"
                 ).hasRole("REGISTRADO")
