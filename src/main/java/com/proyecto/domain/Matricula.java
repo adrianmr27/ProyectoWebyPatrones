@@ -25,7 +25,7 @@ public class Matricula implements Serializable {
     private Curso curso;
 
     @ManyToOne
-    @JoinColumn(name = "periodo_id", referencedColumnName = "id")
+    @JoinColumn(name = "periodo_id")
     private Periodo periodo;
     
     public Matricula() {
@@ -35,5 +35,23 @@ public class Matricula implements Serializable {
         this.estudiante = estudiante;
         this.curso = curso;
         this.periodo = periodo;
+    }
+    
+    // Métodos adicionales para obtener el nombre completo del estudiante y otros datos
+    public String getNombreCompletoEstudiante() {
+        Persona persona = estudiante.getPersona();
+        return persona.getNombre() + " " + persona.getApellido1() + " " + persona.getApellido2();
+    }
+    
+    public String getNombreCurso() {
+        return curso.getNombre();
+    }
+    
+    public String getAnoPeriodo() {
+        return String.valueOf(periodo.getAno());
+    }
+
+    public String getCuatrimestrePeriodo() {
+        return String.valueOf(periodo.getCuatrimestre());
     }
 }

@@ -52,10 +52,20 @@ public class MatriculaServiceImpl implements MatriculaService {
         matriculaDao.delete(matricula);
     }
     
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<Matricula> findByPeriodo(Periodo periodo) {
+//        return matriculaDao.findByPeriodo(periodo); // Implementar este método en el DAO
+//    }
+    
     @Override
-    @Transactional(readOnly = true)
+    public Matricula encontrarMatricula(Matricula matricula) {
+        return matriculaDao.findById(matricula.getId()).orElse(null);
+    }
+
+    @Override
     public List<Matricula> findByPeriodo(Periodo periodo) {
-        return matriculaDao.findByPeriodo(periodo); // Implementar este método en el DAO
+        return matriculaDao.findByPeriodoId(periodo.getId());
     }
 
 }

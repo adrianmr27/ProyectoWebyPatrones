@@ -160,34 +160,70 @@
                             <div class="card-header">
                                 <h4>Listado de Matrículas</h4>
                             </div>
+
+                            <!-- Filtros -->
+                            <div class="card-body">
+                                <form id="filtrosForm" th:action="@{/matriculas/listado}" method="get">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="periodo">Período</label>
+                                            <select class="form-control" id="periodo" name="periodoId" th:field="*{periodoId}">
+                                                <option value="" selected>Seleccione un período</option>
+                                                <option th:each="periodo : ${periodos}"
+                                                        th:value="${periodo.id}"
+                                                        th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}">
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="curso">Curso</label>
+                                            <select class="form-control" id="curso" name="cursoId" th:field="*{cursoId}">
+                                                <option value="" selected>Seleccione un curso</option>
+                                                <option th:each="curso : ${cursos}"
+                                                        th:value="${curso.id}"
+                                                        th:text="${curso.nombre}">
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="estudiante">Estudiante</label>
+                                            <select class="form-control" id="estudiante" name="estudianteId" th:field="*{estudianteId}">
+                                                <option value="" selected>Seleccione un estudiante</option>
+                                                <option th:each="estudiante : ${estudiantes}"
+                                                        th:value="${estudiante.id}"
+                                                        th:text="${estudiante.persona.nombre + ' ' + estudiante.persona.apellido1 + ' ' + estudiante.persona.apellido2}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                                </form>
+                            </div>
+
+                            <!-- Tabla de matrículas -->
                             <div th:if="${matriculas != null && !matriculas.isEmpty()}">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>ID Estudiante</th>
-                                            <th>ID Curso</th>
-                                            <th>ID Periodo</th>
+                                            <th>Estudiante</th>
+                                            <th>Curso</th>
+                                            <th>Período</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="matricula : ${matriculas}" class="align-middle">
-                                            <td th:text="${matricula.estudianteId}"></td>
-                                            <td th:text="${matricula.cursoId}"></td>
-                                            <td th:text="${matricula.periodoId}"></td>
+                                            <td th:text="${matricula.estudiante.persona.nombre + ' ' + matricula.estudiante.persona.apellido1 + ' ' + matricula.estudiante.persona.apellido2}"></td>
+                                            <td th:text="${matricula.curso.nombre}"></td>
+                                            <td th:text="${matricula.periodo.ano + ' - Cuatrimestre ' + matricula.periodo.cuatrimestre}"></td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="accionesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Acciones
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="accionesDropdown">
-                                                        <li>
-                                                            <a class="dropdown-item" th:href="@{/matriculas/modifica/{idMatricula}(idMatricula=${matricula.id})}">Modificar</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item text-danger" th:href="@{/matriculas/eliminar/{id}(id=${matricula.id})}">Eliminar</a>
-                                                        </li>
-                                                    </ul>
+                                                <div class="d-flex">
+                                                    <form th:action="@{/matriculas/desmatricular}" method="post" th:object="${matricula}">
+                                                        <input type="hidden" th:field="*{id}" />
+                                                        <button type="submit" class="btn btn-danger">Desmatricular</button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

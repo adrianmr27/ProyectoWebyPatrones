@@ -16,5 +16,7 @@ public interface MatriculaService {
     void save(Matricula matricula);
     void delete(Matricula matricula);
     List<Matricula> findByPeriodo(Periodo periodo); // Añadir este método
+    
+    Matricula encontrarMatricula(Matricula matricula);
 }
 

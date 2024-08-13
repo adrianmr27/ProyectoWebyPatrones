@@ -17,7 +17,11 @@ public class Estudiante implements Serializable {
     @Column(name = "id")
     private Long id;
     
-    @OneToOne
+//    @OneToOne
+//    @JoinColumn(name = "persona_id")
+//    private Persona persona;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "persona_id")
     private Persona persona;
 
