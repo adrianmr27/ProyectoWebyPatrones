@@ -59,16 +59,20 @@
                             <div class="modal-body">
                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                 <div class="mb-3">
-                                    <label for="estudianteId">ID del Estudiante</label>
-                                    <input type="number" class="form-control" id="estudianteId" name="estudianteId" required="true"/>
+                                    <label for="estudiante">ID del Estudiante</label>
+                                    <input type="number" class="form-control" id="estudianteId" name="estudiante.id" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cursoId">ID del Curso</label>
-                                    <input type="number" class="form-control" id="cursoId" name="cursoId" required="true"/>
+                                    <label for="curso">Cursos</label>
+                                    <select class="form-control" id="curso" name="curso.id" required="true">
+                                        <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="periodoId">ID del Periodo</label>
-                                    <input type="number" class="form-control" id="periodoId" name="periodoId" required="true"/>
+                                    <label for="periodo">Período</label>
+                                    <select class="form-control" id="periodo" name="periodo.id" required="true">
+                                        <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="modal-footer">
