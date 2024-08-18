@@ -23,6 +23,8 @@
                             <th>Examen 1</th>
                             <th>Examen 2</th>
                             <th>Proyecto</th>
+                            <th>Nota Final</th>
+                            <th>Aprobado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -37,6 +39,8 @@
                             <td th:text="${calificacion.examen1}"></td>
                             <td th:text="${calificacion.examen2}"></td>
                             <td th:text="${calificacion.proyecto}"></td>
+                            <td th:text="${calificacion.nota_final}"></td>
+                            <td th:text="${calificacion.aprobado ? 'Sí' : 'No'}"></td>
                             <td>
                                 <a th:href="@{/calificaciones/edit/{id}(id=${calificacion.id})}" class="btn btn-primary btn-sm">Editar</a>
                                 <a th:href="@{/calificaciones/delete/{id}(id=${calificacion.id})}" class="btn btn-danger btn-sm">Eliminar</a>

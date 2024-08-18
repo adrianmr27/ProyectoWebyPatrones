@@ -44,7 +44,7 @@ public class CalificacionController {
 
     @GetMapping("/delete/{id}")
     public String deleteCalificacion(@PathVariable("id") Long id) {
-        calificacionService.deleteCalificacionById(id);
+        calificacionService.delete(calificacionService.getCalificacionById(id));
         return "redirect:/calificaciones/list";
     }
 }

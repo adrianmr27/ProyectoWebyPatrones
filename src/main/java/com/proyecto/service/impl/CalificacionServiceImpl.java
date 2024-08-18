@@ -1,5 +1,6 @@
 package com.proyecto.service.impl;
 
+
 import com.proyecto.dao.CalificacionDao;
 import com.proyecto.domain.Calificacion;
 import com.proyecto.service.CalificacionService;
@@ -22,8 +23,8 @@ public class CalificacionServiceImpl implements CalificacionService {
 
     @Override
     @Transactional(readOnly = true)
-    public Calificacion getCalificacion(Calificacion calificacion) {
-        return calificacionDao.findById(calificacion.getId()).orElse(null);
+    public Calificacion getCalificacionById(Long id) {
+        return calificacionDao.findById(id).orElse(null);
     }
 
     @Override
@@ -36,17 +37,5 @@ public class CalificacionServiceImpl implements CalificacionService {
     @Transactional
     public void delete(Calificacion calificacion) {
         calificacionDao.delete(calificacion);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Calificacion getCalificacionById(Long id) {
-        return calificacionDao.findById(id).orElse(null);
-    }
-
-    @Override
-    @Transactional
-    public void deleteCalificacionById(Long id) {
-        calificacionDao.deleteById(id);
     }
 }

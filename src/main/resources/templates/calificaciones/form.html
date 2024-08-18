@@ -20,7 +20,38 @@
                         <label for="laboratorio1" class="form-label">Laboratorio 1</label>
                         <input type="text" class="form-control" th:field="*{laboratorio1}" id="laboratorio1" required>
                     </div>
-                    <!-- Repetir para cada campo -->
+                    <div class="mb-3">
+                        <label for="laboratorio2" class="form-label">Laboratorio 2</label>
+                        <input type="text" class="form-control" th:field="*{laboratorio2}" id="laboratorio2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quiz1" class="form-label">Quiz 1</label>
+                        <input type="text" class="form-control" th:field="*{quiz1}" id="quiz1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quiz2" class="form-label">Quiz 2</label>
+                        <input type="text" class="form-control" th:field="*{quiz2}" id="quiz2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="examen1" class="form-label">Examen 1</label>
+                        <input type="text" class="form-control" th:field="*{examen1}" id="examen1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="examen2" class="form-label">Examen 2</label>
+                        <input type="text" class="form-control" th:field="*{examen2}" id="examen2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="proyecto" class="form-label">Proyecto</label>
+                        <input type="text" class="form-control" th:field="*{proyecto}" id="proyecto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nota_final" class="form-label">Nota Final</label>
+                        <input type="text" class="form-control" th:field="*{nota_final}" id="nota_final" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" th:field="*{aprobado}" id="aprobado">
+                        <label for="aprobado" class="form-check-label">Aprobado</label>
+                    </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
             </div>
