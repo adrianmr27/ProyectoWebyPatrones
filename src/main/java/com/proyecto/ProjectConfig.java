@@ -4,15 +4,19 @@
  */
 package com.proyecto;
 
+import com.proyecto.service.impl.ProfesorDetailsServiceImpl;
 import java.util.Locale;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.LocaleResolver;
@@ -69,13 +73,24 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private ProfesorDetailsServiceImpl profesorDetailsService;
+
+    @Autowired
+    public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
+        build.userDetailsService(profesorDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/errores/**","/error","/error/**",
+                .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
                         "/carrito/**", "/pruebas/**", "/reportes/**",
-                        "/registro/**", "/js/**", "/webjars/**","/planes","/suscripcion")
+                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion")
                 .permitAll()
                 .requestMatchers(
                         "/producto/nuevo", "/producto/guardar",
@@ -84,40 +99,43 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/categoria/modificar/**", "/categoria/eliminar/**",
                         "/usuario/nuevo", "/usuario/guardar",
                         "/usuario/modificar/**", "/usuario/eliminar/**",
-                        "/reportes/**","/asistencias","/asistencias/**",
-                        "/asistencias/registrar","/asistencias/matricula/**",
-                        "/calificaciones","/calificaciones/list","/calificaciones/**",
-                        "/calificaciones/add","/calificaciones/save",
-                        "/calificaciones/edit/**","/calificaciones/delete/**",
-                        "/estudiantes**","/estudiantes/listado",
-                        "/estudiante","/estudiante/**",
-                        "/layout/**","/login",
-                        "/cursos**","/cursos/listado","/cursos/listado2",
-                        "/curso","/curso/**",
-                        "/cursos/nuevo","/cursos/guardar",
-                        "/cursos/eliminar/**","/cursos/modifica/**","/cursos/editar/**",
-                        "/estudiantes/nuevo","/estudiantes/guardar",
-                        "/estudiantes/eliminar/**","/estudiantes/modificar/**",
-                        "/periodos/nuevo","/periodos/guardar",
-                        "/periodos/eliminar/**","/periodos/modificar/**", "/periodos/modifica/**",
-                        "/periodos**","/periodos/listado",
-                        "/matriculas/nuevo","/matriculas/guardar",
-                        "/matriculas/eliminar/**","/matriculas/modificar/**", "/matriculas/modifica/**",
-                        "/matriculas**","/matriculas/listado",
-                        "/js/**", "/webjars/**","/tamplates","templates/**", "/estudiantes/actualizar","/estudiantes/actualizar/**",
+                        "/reportes/**", "/asistencias", "/asistencias/**",
+                        "/asistencias/registrar", "/asistencias/matricula/**",
+                        "/calificaciones", "/calificaciones/list", "/calificaciones/**",
+                        "/calificaciones/add", "/calificaciones/save",
+                        "/calificaciones/edit/**", "/calificaciones/delete/**",
+                        "/estudiantes**", "/estudiantes/listado",
+                        "/estudiante", "/estudiante/**",
+                        "/layout/**", "/login",
+                        "/cursos**", "/cursos/listado", "/cursos/listado2",
+                        "/curso", "/curso/**",
+                        "/cursos/nuevo", "/cursos/guardar",
+                        "/cursos/eliminar/**", "/cursos/modifica/**", "/cursos/editar/**",
+                        "/estudiantes/nuevo", "/estudiantes/guardar",
+                        "/estudiantes/eliminar/**", "/estudiantes/modificar/**",
+                        "/periodos/nuevo", "/periodos/guardar",
+                        "/periodos/eliminar/**", "/periodos/modificar/**", "/periodos/modifica/**",
+                        "/periodos**", "/periodos/listado",
+                        "/matriculas/nuevo", "/matriculas/guardar",
+                        "/matriculas/eliminar/**", "/matriculas/modificar/**", "/matriculas/modifica/**",
+                        "/matriculas**", "/matriculas/listado",
+                        "/js/**", "/webjars/**", "/tamplates", "templates/**", "/estudiantes/actualizar", "/estudiantes/actualizar/**",
                         "/estudiantes/modificar/**"
-                ).hasRole("REGISTRADO")
+                ).hasRole("TEACH")
                 .requestMatchers("/facturar/carrito")
-                .hasRole("USER")
+                .hasRole("TEACH")
                 )
                 .formLogin((form) -> form
-                .loginPage("/login").permitAll())
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/estudiantes/listado", true) // Redirigir a estudiantes/listado tras login exitoso
+                )
                 .logout((logout) -> logout.permitAll());
         return http.build();
     }
 
+
     /* El siguiente método se utiliza para completar la clase no es 
-    realmente funcional, la próxima semana se reemplaza con usuarios de BD */
+    realmente funcional, la próxima semana se reemplaza con usuarios de BD 
     @Bean
     public UserDetailsService users() {
         UserDetails admin = User.builder()
@@ -131,6 +149,5 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user, admin);
-    }
-
+    }*/
 }

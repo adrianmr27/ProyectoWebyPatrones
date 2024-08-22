@@ -29,7 +29,7 @@
                             <ul class="list-unstyled mt-3 mb-4">
                                 <li th:text="${plan.descripcion}">Descripción del plan</li>
                             </ul>
-                            <a th:href="@{/suscripcion?planId={planId}(planId=${plan.idPlan})}" class="w-100 btn btn-lg btn-outline-primary">Suscribirse</a>
+                            <a th:href="@{/suscripcion?planId={planId}(planId=${plan.id})}" class="w-100 btn btn-lg btn-outline-primary">Suscribirse</a>
                         </div>
                     </div>
                 </div>
@@ -134,8 +134,8 @@
                     <form th:action="@{/suscripcion}" th:object="${profesor}" method="post" class="needs-validation" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="personaId" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="personaId" th:field="*{persona.idPersona}" required>
+                                <label for="identificacion" class="form-label">ID</label>
+                                <input type="number" class="form-control" id="identificacion" th:field="*{persona.identificacion}" required>
                                 <div class="invalid-feedback">
                                     Identificación es requerida.
                                 </div>
@@ -191,7 +191,7 @@
                             </div>
                         </div>
                         <hr class="my-4">
-                        <input type="hidden" name="planId" th:value="${selectedPlan.idPlan}" />
+                        <input type="hidden" name="planId" th:value="${selectedPlan.id}" />
                         <button class="w-100 btn btn-primary btn-lg" type="submit">Suscribirse</button>
                     </form>
                 </div>

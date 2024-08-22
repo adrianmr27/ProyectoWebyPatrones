@@ -44,4 +44,29 @@ public class ProfesorServiceImpl implements ProfesorService {
     public List<Profesor> getAllProfesores() {
         return profesorDao.findAll();
     }
+
+    @Override
+    public Profesor getProfesorPorUsuario(String usuario) {
+        return profesorDao.findByUsuario(usuario);
+    }
+
+    @Override
+    public Profesor getProfesorPorUsuarioYClave(String usuario, String clave) {
+        return profesorDao.findByUsuarioAndClave(usuario, clave);
+    }
+
+    @Override
+    public Profesor getProfesorPorUsuarioOCorreo(String usuario, String correo) {
+        return profesorDao.findByUsuarioOrPersonaCorreo(usuario, correo);
+    }
+
+    @Override
+    public boolean existeProfesorPorUsuarioOCorreo(String usuario, String correo) {
+        return profesorDao.existsByUsuarioOrPersonaCorreo(usuario, correo);
+    }
+
+    @Override
+    public void save(Profesor usuario, boolean crearRolUser) {// el rol se asigna al agregar el profesor
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

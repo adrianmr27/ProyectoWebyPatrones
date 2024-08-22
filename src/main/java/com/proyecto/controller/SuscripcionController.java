@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 import java.util.Calendar;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 public class SuscripcionController {
@@ -47,7 +48,11 @@ public class SuscripcionController {
     public String procesarSuscripcion(Profesor profesor, @RequestParam("planId") Long planId, Model model) {
         // Guardar la persona primero
         Persona persona = profesor.getPersona();
+        // Encriptar contraseña
+        profesor.setClave(new BCryptPasswordEncoder().encode(profesor.getClave()));
+        
         // Asignar el rol de profesor (id 2)
+        
         Rol rolProfesor = new Rol();
         rolProfesor.setId(2);
         profesor.setRol(rolProfesor);
