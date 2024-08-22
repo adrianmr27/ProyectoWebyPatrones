@@ -26,8 +26,4 @@ public interface ProfesorService {
     
     // Se valida si existe un Profesor considerando el usuario
     public boolean existeProfesorPorUsuarioOCorreo(String usuario, String correo);
-    
-    // Se inserta un nuevo usuario si el id del usuario esta vacío
-    // Se actualiza un usuario si el id del usuario NO esta vacío
-    public void save(Profesor usuario,boolean crearRolUser);
 }

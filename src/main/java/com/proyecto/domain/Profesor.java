@@ -29,14 +29,19 @@ public class Profesor implements Serializable {
     @OneToOne
     @JoinColumn(name = "rol_id")  // Cambiado de "id" a "rol_id"
     private Rol rol;
+    
+    private boolean activo;
 
     public Profesor() {
     }
 
-    public Profesor(Persona persona, String usuario, String clave, Rol rol) {
+    public Profesor(Persona persona, String usuario, String clave, Rol rol, boolean activo) {
         this.persona = persona;
         this.usuario = usuario;
         this.clave = clave;
         this.rol = rol;
+        this.activo = activo;
     }
+
+    
 }

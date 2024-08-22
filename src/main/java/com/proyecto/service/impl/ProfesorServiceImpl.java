@@ -65,8 +65,5 @@ public class ProfesorServiceImpl implements ProfesorService {
         return profesorDao.existsByUsuarioOrPersonaCorreo(usuario, correo);
     }
 
-    @Override
-    public void save(Profesor usuario, boolean crearRolUser) {// el rol se asigna al agregar el profesor
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
 }

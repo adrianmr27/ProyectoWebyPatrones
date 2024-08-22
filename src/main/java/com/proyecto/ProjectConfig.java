@@ -83,14 +83,19 @@ public class ProjectConfig implements WebMvcConfigurer {
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
         build.userDetailsService(profesorDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
+    
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
-                        "/carrito/**", "/pruebas/**", "/reportes/**",
-                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion")
+                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion",
+                        "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**")
                 .permitAll()
                 .requestMatchers(
                         "/producto/nuevo", "/producto/guardar",
@@ -120,7 +125,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/matriculas/eliminar/**", "/matriculas/modificar/**", "/matriculas/modifica/**",
                         "/matriculas**", "/matriculas/listado",
                         "/js/**", "/webjars/**", "/tamplates", "templates/**", "/estudiantes/actualizar", "/estudiantes/actualizar/**",
-                        "/estudiantes/modificar/**"
+                        "/estudiantes/modificar/**", "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**"
                 ).hasRole("TEACH")
                 .requestMatchers("/facturar/carrito")
                 .hasRole("TEACH")
