@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.proyecto;
 
 import com.proyecto.service.impl.ProfesorDetailsServiceImpl;
@@ -94,7 +91,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         http
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
-                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion",
+                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion","/logout","/logout/**",
                         "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**")
                 .permitAll()
                 .requestMatchers(
@@ -134,25 +131,9 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/estudiantes/listado", true) // Redirigir a estudiantes/listado tras login exitoso
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout((logout) -> logout
+                        .permitAll());
         return http.build();
     }
 
-
-    /* El siguiente método se utiliza para completar la clase no es 
-    realmente funcional, la próxima semana se reemplaza con usuarios de BD 
-    @Bean
-    public UserDetailsService users() {
-        UserDetails admin = User.builder()
-                .username("juan")
-                .password("{noop}123")
-                .roles("REGISTRADO","USER")
-                .build();
-        UserDetails user = User.builder()
-                .username("pedro")
-                .password("{noop}789")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
-    }*/
 }
