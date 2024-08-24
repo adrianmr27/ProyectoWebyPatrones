@@ -17,4 +17,6 @@ public interface EstudianteService {
 
     public Estudiante findById(Long idEstudiante);
 
+    public List<Estudiante> getEstudiantesPorCurso(long cursoId);
+
 }

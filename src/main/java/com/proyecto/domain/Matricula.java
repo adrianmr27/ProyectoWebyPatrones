@@ -31,6 +31,11 @@ public class Matricula implements Serializable {
     public Matricula() {
     }
 
+    public Matricula(Long id) {
+        this.id = id;
+    }
+    
+
     public Matricula(Estudiante estudiante, Curso curso, Periodo periodo) {
         this.estudiante = estudiante;
         this.curso = curso;

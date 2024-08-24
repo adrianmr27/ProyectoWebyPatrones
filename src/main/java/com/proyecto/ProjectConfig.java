@@ -85,7 +85,7 @@ public class ProjectConfig implements WebMvcConfigurer {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -111,6 +111,9 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/layout/**", "/login",
                         "/cursos**", "/cursos/listado", "/cursos/listado2",
                         "/curso", "/curso/**",
+                        "/cursos/nuevo", "/cursos/guardar",
+                        "/asistencia**", "/asistencia/curso/**", "/asistencia/curso", "/asistencia/estudiantes", "/asistencia/estudiantes/**",
+                        "/asistencia", "/asistencia/**",
                         "/cursos/nuevo", "/cursos/guardar",
                         "/cursos/eliminar/**", "/cursos/modifica/**", "/cursos/editar/**",
                         "/estudiantes/nuevo", "/estudiantes/guardar",

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <title>Pasar Asistencia</title>
+        <head th:replace="~{layout/plantilla2 :: head}">
+        </head>
+        <body>
+
+            <header th:replace="layout/plantilla2 :: header"></header>
+            <section class="container py-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Pasar Asistencia para Curso</h4>
+                    </div>
+                    <div class="container py-4">
+                <div class="row">
+                    <div class="col-md-3 d-grid">
+                        <a th:href="@{/asistencia/curso}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Regresar
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <form action="/asistencia/registrar" method="post">
+                            <input type="hidden" name="cursoId" th:value="${cursoId}" />
+                            <table class="table table-dark table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Estudiante</th>
+                                        <th>Asistió</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="estudiante, iter : ${estudiantes}">
+                                        <td th:text="${estudiante.persona.nombre} + ' ' + ${estudiante.persona.apellido1}"></td>
+                                        <td>
+                                            <input type="hidden" name="matriculas[__${iter.index}__].id" th:value="${estudiante.matriculas[0].id}" />
+                                            <input type="checkbox" name="matriculas[__${iter.index}__].asistio" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </body>
+</html>

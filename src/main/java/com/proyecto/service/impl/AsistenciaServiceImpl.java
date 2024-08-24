@@ -1,7 +1,9 @@
 package com.proyecto.service.impl;
 
 import com.proyecto.dao.AsistenciaDao;
+import com.proyecto.dao.EstudianteDao;
 import com.proyecto.domain.Asistencia;
+import com.proyecto.domain.Estudiante;
 import com.proyecto.service.AsistenciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,38 +17,14 @@ public class AsistenciaServiceImpl implements AsistenciaService {
     private AsistenciaDao asistenciaDao;
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Asistencia> getAsistencias() {
-        return asistenciaDao.findAll();
+    public List<Asistencia> getAsistenciasPorCurso(Long cursoId) {
+        return asistenciaDao.findByCursoId(cursoId);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Asistencia getAsistencia(Asistencia asistencia) {
-        return asistenciaDao.findById(asistencia.getId()).orElse(null);
-    }
-
-    @Override
-    @Transactional
-    public void save(Asistencia asistencia) {
+    public void registrarAsistencia(Asistencia asistencia) {
         asistenciaDao.save(asistencia);
     }
-
-    @Override
-    @Transactional
-    public void delete(Asistencia asistencia) {
-        asistenciaDao.delete(asistencia);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Asistencia getAsistenciaById(Long id) {
-        return asistenciaDao.findById(id).orElse(null); // Implementar esta línea
-    }
-
-    @Override
-    @Transactional
-    public void deleteAsistenciaById(Long id) {
-        asistenciaDao.deleteById(id);
-    }
+    
+    
 }

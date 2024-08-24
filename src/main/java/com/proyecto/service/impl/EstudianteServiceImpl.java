@@ -57,5 +57,10 @@ public class EstudianteServiceImpl implements EstudianteService {
         return estudianteDao.findById(idEstudiante).orElse(null);
     }
 
+     @Override
+    public List<Estudiante> getEstudiantesPorCurso(long cursoId) {
+        return estudianteDao.findByCursoId(cursoId);
+    }
+
     
 }
