@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface AsistenciaDao extends JpaRepository<Asistencia, Integer> {
-    List<Asistencia> findByMatriculaId(int matriculaId);
+public interface AsistenciaDao extends JpaRepository<Asistencia, Long> {
+    List<Asistencia> findByMatriculaId(Long matriculaId);
     
     @Query("SELECT a FROM Asistencia a WHERE a.matricula.curso.id = :cursoId")
-    List<Asistencia> findByCursoId(@Param("cursoId") Long cursoId);
+    List<Asistencia> findByCursoId(@Param("cursoId") Long cursoId);    
 }

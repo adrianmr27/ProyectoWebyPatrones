@@ -59,8 +59,13 @@
                             <div class="modal-body">
                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                 <div class="mb-3">
-                                    <label for="estudiante">ID del Estudiante</label>
-                                    <input type="number" class="form-control" id="estudianteId" name="estudiante.id" required="true"/>
+                                    <label for="estudianteId">Estudiante</label>
+                                    <select class="form-control" id="estudianteId" name="estudiante.id" required="true">
+                                        <option th:each="estudiante : ${estudiantes}" 
+                                                th:value="${estudiante.id}" 
+                                                th:text="${estudiante.persona.nombre + ' ' + estudiante.persona.apellido1 + ' ' + estudiante.persona.apellido2}">
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="curso">Cursos</label>
@@ -166,7 +171,7 @@
                             </div>
 
                             <!-- Filtros -->
-                            <div class="card-body">
+<!--                            <div class="card-body">
                                 <form id="filtrosForm" th:action="@{/matriculas/listado}" method="get">
                                     <div class="row mb-3">
                                         <div class="col-md-4">
@@ -204,7 +209,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">Filtrar</button>
                                 </form>
-                            </div>
+                            </div>-->
 
                             <!-- Tabla de matrículas -->
                             <div th:if="${matriculas != null && !matriculas.isEmpty()}">
@@ -214,7 +219,7 @@
                                             <th>Estudiante</th>
                                             <th>Curso</th>
                                             <th>Período</th>
-                                            <th>Acciones</th>
+<!--                                            <th>Acciones</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -222,14 +227,14 @@
                                             <td th:text="${matricula.estudiante.persona.nombre + ' ' + matricula.estudiante.persona.apellido1 + ' ' + matricula.estudiante.persona.apellido2}"></td>
                                             <td th:text="${matricula.curso.nombre}"></td>
                                             <td th:text="${matricula.periodo.ano + ' - Cuatrimestre ' + matricula.periodo.cuatrimestre}"></td>
-                                            <td>
+<!--                                            <td>
                                                 <div class="d-flex">
                                                     <form th:action="@{/matriculas/desmatricular}" method="post" th:object="${matricula}">
                                                         <input type="hidden" th:field="*{id}" />
                                                         <button type="submit" class="btn btn-danger">Desmatricular</button>
                                                     </form>
                                                 </div>
-                                            </td>
+                                            </td>-->
                                         </tr>
                                     </tbody>
                                 </table>

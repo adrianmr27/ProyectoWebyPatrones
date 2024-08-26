@@ -81,7 +81,7 @@
                                     <label for="telefono">Teléfono</label>
                                     <input type="text" class="form-control" id="telefono" name="persona.telefono" required="true"/>
                                 </div>
-                                <div class="mb-3">
+<!--                                <div class="mb-3">
                                     <label for="curso">Cursos</label>
                                     <select class="form-control" id="curso" name="curso.id" required="true">
                                         <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
@@ -92,7 +92,7 @@
                                     <select class="form-control" id="periodo" name="periodo.id" required="true">
                                         <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
                                     </select>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Guardar</button>

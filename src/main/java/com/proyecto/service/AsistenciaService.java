@@ -8,6 +8,5 @@ import java.util.Map;
 public interface AsistenciaService {
 
     List<Asistencia> getAsistenciasPorCurso(Long cursoId);
-
-    void registrarAsistencia(Asistencia asistencia);
+    void registrarAsistencias(List<Asistencia> asistencias);
 }

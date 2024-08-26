@@ -87,56 +87,67 @@ public class ProjectConfig implements WebMvcConfigurer {
     }
     
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
-                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion","/logout","/logout/**",
-                        "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**")
-                .permitAll()
-                .requestMatchers(
-                        "/producto/nuevo", "/producto/guardar",
-                        "/producto/modificar/**", "/producto/eliminar/**",
-                        "/categoria/nuevo", "/categoria/guardar",
-                        "/categoria/modificar/**", "/categoria/eliminar/**",
-                        "/usuario/nuevo", "/usuario/guardar",
-                        "/usuario/modificar/**", "/usuario/eliminar/**",
-                        "/reportes/**", "/asistencias", "/asistencias/**",
-                        "/asistencias/registrar", "/asistencias/matricula/**",
-                        "/calificaciones", "/calificaciones/list", "/calificaciones/**",
-                        "/calificaciones/add", "/calificaciones/save",
-                        "/calificaciones/edit/**", "/calificaciones/delete/**",
-                        "/estudiantes**", "/estudiantes/listado",
-                        "/estudiante", "/estudiante/**",
-                        "/layout/**", "/login",
-                        "/cursos**", "/cursos/listado", "/cursos/listado2",
-                        "/curso", "/curso/**",
-                        "/cursos/nuevo", "/cursos/guardar",
-                        "/asistencia**", "/asistencia/curso/**", "/asistencia/curso", "/asistencia/estudiantes", "/asistencia/estudiantes/**",
-                        "/asistencia", "/asistencia/**",
-                        "/cursos/nuevo", "/cursos/guardar",
-                        "/cursos/eliminar/**", "/cursos/modifica/**", "/cursos/editar/**",
-                        "/estudiantes/nuevo", "/estudiantes/guardar",
-                        "/estudiantes/eliminar/**", "/estudiantes/modificar/**",
-                        "/periodos/nuevo", "/periodos/guardar",
-                        "/periodos/eliminar/**", "/periodos/modificar/**", "/periodos/modifica/**",
-                        "/periodos**", "/periodos/listado",
-                        "/matriculas/nuevo", "/matriculas/guardar",
-                        "/matriculas/eliminar/**", "/matriculas/modificar/**", "/matriculas/modifica/**",
-                        "/matriculas**", "/matriculas/listado",
-                        "/js/**", "/webjars/**", "/tamplates", "templates/**", "/estudiantes/actualizar", "/estudiantes/actualizar/**",
-                        "/estudiantes/modificar/**", "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**"
-                ).hasRole("TEACH")
-                .requestMatchers("/facturar/carrito")
-                .hasRole("TEACH")
-                )
-                .formLogin((form) -> form
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/estudiantes/listado", true) // Redirigir a estudiantes/listado tras login exitoso
-                )
-                .logout((logout) -> logout
-                        .permitAll());
-        return http.build();
-    }
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+            .authorizeHttpRequests((request) -> request
+            .anyRequest().permitAll())
+            .formLogin((form) -> form.loginPage("/login").permitAll())
+            .logout((logout) -> logout.permitAll());
+    return http.build();
+}
+    
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests((request) -> request
+//                .requestMatchers("/", "/index", "/errores/**", "/error", "/error/**",
+//                        "/registro/**", "/js/**", "/webjars/**", "/planes", "/suscripcion","/logout","/logout/**",
+//                        "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**")
+//                .permitAll()
+//                .requestMatchers(
+//                        "/producto/nuevo", "/producto/guardar",
+//                        "/producto/modificar/**", "/producto/eliminar/**",
+//                        "/categoria/nuevo", "/categoria/guardar",
+//                        "/categoria/modificar/**", "/categoria/eliminar/**",
+//                        "/usuario/nuevo", "/usuario/guardar",
+//                        "/usuario/modificar/**", "/usuario/eliminar/**",
+//                        "/reportes/**", "/asistencias", "/asistencias/**",
+//                        "/asistencias/registrar", "/asistencias/matricula/**",
+//                        "/calificaciones", "/calificaciones/list", "/calificaciones/**",
+//                        "/calificaciones/add", "/calificaciones/save",
+//                        "/calificaciones/edit/**", "/calificaciones/delete/**",
+//                        "/estudiantes**", "/estudiantes/listado",
+//                        "/estudiante", "/estudiante/**",
+//                        "/layout/**", "/login",
+//                        "/cursos**", "/cursos/listado", "/cursos/listado2",
+//                        "/curso", "/curso/**",
+//                        "/cursos/nuevo", "/cursos/guardar",
+//                        "/asistencia**", "/asistencia/curso/**", "/asistencia/curso", "/asistencia/estudiantes", "/asistencia/estudiantes/**",
+//                        "/asistencia", "/asistencia/**", "/asistencia/estudiantes/registrar/**", "/asistencia/registrar/**", "/asistencia/registrar",
+//                        "/asistencia/estudiantes"
+//                        "/cursos/nuevo", "/cursos/guardar",
+//                        "/cursos/eliminar/**", "/cursos/modifica/**", "/cursos/editar/**",
+//                        "/estudiantes/nuevo", "/estudiantes/guardar",
+//                        "/estudiantes/eliminar/**", "/estudiantes/modificar/**",
+//                        "/periodos/nuevo", "/periodos/guardar",
+//                        "/periodos/eliminar/**", "/periodos/modificar/**", "/periodos/modifica/**",
+//                        "/periodos**", "/periodos/listado",
+//                        "/matriculas/nuevo", "/matriculas/guardar",
+//                        "/matriculas/eliminar/**", "/matriculas/modificar/**", "/matriculas/modifica/**",
+//                        "/matriculas**", "/matriculas/listado",
+//                        "/js/**", "/webjars/**", "/tamplates", "templates/**", "/estudiantes/actualizar", "/estudiantes/actualizar/**",
+//                        "/estudiantes/modificar/**", "/planes/**", "/suscripcion/**", "/pendienteActivar", "/activar", "/activar/**"
+//                ).hasRole("TEACH")
+//                .requestMatchers("/facturar/carrito")
+//                .hasRole("TEACH")
+//                )
+//                .formLogin((form) -> form
+//                .loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/estudiantes/listado", true) // Redirigir a estudiantes/listado tras login exitoso
+//                )
+//                .logout((logout) -> logout
+//                        .permitAll());
+//        return http.build();
+//    }
 
 }

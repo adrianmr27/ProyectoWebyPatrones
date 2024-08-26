@@ -22,7 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -61,10 +60,7 @@ public class EstudiantesController {
     }
 
     @PostMapping("/guardar")
-    public String crearEstudiante(@ModelAttribute("estudiante") Estudiante estudiante,
-            @RequestParam("curso.id") Long cursoId,
-            @RequestParam("periodo.id") Long periodoId,
-            Model model) {
+    public String crearEstudiante(@ModelAttribute("estudiante") Estudiante estudiante, Model model) {
         // Verificar si el correo electrónico ya está en uso
         Persona personaExisteCorreo = personaService.findByCorreo(estudiante.getPersona().getCorreo());
         if (personaExisteCorreo != null) {
@@ -83,12 +79,7 @@ public class EstudiantesController {
         personaService.save(estudiante.getPersona());
         estudianteService.save(estudiante);
 
-        // Crear y guardar la matrícula
-        Curso curso = cursoService.getCursoById(cursoId);
-        Periodo periodo = periodoService.getPeriodoById(periodoId);
-        Matricula matricula = new Matricula(estudiante, curso, periodo);
-        matriculaService.save(matricula);
-
+       
         return "redirect:/estudiantes/listado";
     }
 
