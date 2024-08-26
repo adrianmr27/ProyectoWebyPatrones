@@ -5,7 +5,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <head th:replace="~{layout/plantilla2 :: head}">
-        <title>Cursos</title>
+        <title><!--Cursos--> [[#{curso.text}]]</title>
     </head>
 
     <body>
@@ -17,17 +17,17 @@
                     <div class="col">
                         <ul class="list-inline d-flex justify-content-between align-items-center">
                             <li class="list-inline-item">
-                                <h3 class="mr-3">Gestión de Cursos</h3>
+                                <h3 class="mr-3"><!--Gestión de Cursos --> [[#{curso.titulo5}]]</h3>
                             </li>
                             <li class="list-inline-item">
-                                <h4>Cursos: <strong th:text="${cursos.size()}">0</strong></h4>
+                                <h4><!--Cursos:  -->[[#{curso.text}]]<strong th:text="${cursos.size()}">0</strong></h4>
                             </li>
                             <li class="list-inline-item">
                                 <button type="button" 
                                         class="btn btn-primary" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#agregarCurso">
-                                    Agregar Curso
+                                    <!--Agregar Curso--> [[#{curso.agregar}]]
                                 </button>
                             </li>
                             <li class="list-inline-item ml-auto">
@@ -53,25 +53,25 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><!--Agregar Curso--> [[#{curso.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form th:action="@{/cursos/guardar}" method="POST" class="was-validated" enctype="multipart/form-data" th:object="${curso}">
                             <div class="modal-body">
                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre</label>
+                                    <label for="nombre"><!--Nombre del curso--> [[#{curso.nombre}]]</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="profesorId">Profesor</label>
+                                    <label for="profesorId"><!--Profesor--> [[#{profesor}]]</label>
                                     <select class="form-control" id="profesorId" name="profesorId" required="true">
                                         <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.id}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-primary" type="submit"><!--Guardar-->  [[#{accion.guardar}]]</button>
                             </div>
                         </form>
                     </div>
@@ -97,18 +97,18 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4>Actualizar Curso</h4>
+                                                <h4><!--Actualizar Curso-->  [[#{curso.actualizar}]]</h4>
                                             </div>
                                             <div class="card-body">
                                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                                 <div class="mb-3">
-                                                    <label for="nombre">Nombre del curso</label>
+                                                    <label for="nombre"><!--Nombre del curso--> [[#{curso.nombre}]]</label>
                                                     <input type="text" class="form-control" 
                                                            id="nombre" name="nombre"
                                                            th:field="*{nombre}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="profesorId">Profesor</label>
+                                                    <label for="profesorId"><!--Profesor--> [[#{profesor}]]</label>
                                                     <select class="form-control" id="profesorId" name="profesorId" required="true">
                                                         <option th:each="profesor : ${profesores}" th:value="${profesor.id}" th:text="${profesor.id}" th:selected="${profesor.id == curso.profesorId ? 'selected' : ''}"></option>
                                                     </select>
@@ -130,18 +130,18 @@
                 <div class="row">
                     <div class="col-md-4 d-grid">
                         <a th:href="@{/cursos/listado}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> Regresar
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
                         <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}"
                            class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Eliminar
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> Guardar
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
                         </button>
                     </div>
                 </div>
@@ -155,14 +155,14 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Listado de Cursos</h4>
+                                <h4><!--Listado de Cursos-->  [[#{curso.titulo6}]]</h4>
                             </div>
                             <div th:if="${cursos != null && !cursos.isEmpty()}">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nombre del Curso</th>
-                                            <th>Profesor</th>
+                                            <th><!--Nombre del curso--> [[#{curso.nombre}]]</th>
+                                            <th><!--Profesor--> [[#{profesor}]]</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -177,10 +177,10 @@
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="accionesDropdown">
                                                         <li>
-                                                            <a class="dropdown-item" th:href="@{/cursos/modifica/{idCurso}(idCurso=${curso.id})}">Modificar</a>
+                                                            <a class="dropdown-item" th:href="@{/cursos/modifica/{idCurso}(idCurso=${curso.id})}">[[#{accion.editar}]]</a>
                                                         </li>
                                                         <li>
-                                                            <a class="dropdown-item text-danger" th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Elimina</a>
+                                                            <a class="dropdown-item text-danger" th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">[[#{accion.eliminar}]]</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -190,7 +190,7 @@
                                 </table>
                             </div>
                             <div th:if="${cursos == null || cursos.isEmpty()}">
-                                <p>No hay cursos disponibles.</p>
+                                <p><!--No hay cursos disponibles. --> [[#{curso.titulo7}]]</p>
                             </div>
                         </div>
                     </div>
@@ -206,20 +206,20 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Listado de Cursos</h4>
+                                <h4><!--Listado de Cursos-->  [[#{curso.titulo6}]] </h4>
                             </div>
                             <div th:if="${cursos != null && !cursos.isEmpty()}">
-                                <label for="curso">Seleccionar Curso</label>
+                                <label for="curso"> <!--Seleccionar Curso-->  [[#{curso.titulo8}]]</label>
                                 <select class="form-control" id="curso" name="cursoId" required>
                                     <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
                                 </select>
 
-                                <a href="/calificaciones/list" class="btn btn-primary mt-2">Calificar</a>
-                                <a href="/asistencia/curso" class="btn btn-primary mt-2">Asistencia</a>
+                                <a href="/calificaciones/list" class="btn btn-primary mt-2"> <!--Calificar-->[[#{calificar}]]</a>
+                                <a href="/asistencia/curso" class="btn btn-primary mt-2"> <!--Asistencia-->[[#{asistencia}]]</a>
                             </div>
 
                             <div th:if="${cursos == null || cursos.isEmpty()}">
-                                <p>No hay cursos disponibles.</p>
+                                <p><!--No hay cursos disponibles. --> [[#{curso.titulo7}]].</p>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Calificaciones</title>
+    <title><!--Lista de Calificaciones -->[[#{calificacion.titulo3}]]</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -10,21 +10,21 @@
     <div class="container my-4">
         <div class="row">
             <div class="col">
-                <h1 class="display-6">Lista de Calificaciones</h1>
+                <h1 class="display-6"><!--Lista de Calificaciones --> [[#{calificacion.titulo3}]]</h1>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Matrícula</th>
-                            <th>Laboratorio 1</th>
-                            <th>Laboratorio 2</th>
-                            <th>Quiz 1</th>
-                            <th>Quiz 2</th>
-                            <th>Examen 1</th>
-                            <th>Examen 2</th>
-                            <th>Proyecto</th>
-                            <th>Nota Final</th>
-                            <th>Aprobado</th>
+                            <th><!--Matrícula ID-->  [[#{calificacion.matricula}]]</th>
+                            <th><!--Laboratorio 1-->  [[#{calificacion.lab1}]]</th>
+                            <th><!--Laboratorio 2:--> [[#{calificacion.lab2}]]</th>
+                            <th><!--Quiz 1:--> [[#{calificacion.quiz1}]]</th>
+                            <th><!--Quiz 2:--> [[#{calificacion.quiz2}]]</th>
+                            <th><!--Examen 1:-->  [[#{calificacion.ex1}]]</th>
+                            <th><!--Examen 2:--> [[#{calificacion.ex2}]]</th>
+                            <th><!--Proyecto:-->  [[#{calificacion.proyecto}]]</th>
+                            <th><!--Nota Final--> [[#{calificacion.nota}]]</th>
+                            <th><!--Aprobado-->  [[#{calificacion.aprobado}]]</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -42,13 +42,13 @@
                             <td th:text="${calificacion.nota_final}"></td>
                             <td th:text="${calificacion.aprobado ? 'Sí' : 'No'}"></td>
                             <td>
-                                <a th:href="@{/calificaciones/edit/{id}(id=${calificacion.id})}" class="btn btn-primary btn-sm">Editar</a>
-                                <a th:href="@{/calificaciones/delete/{id}(id=${calificacion.id})}" class="btn btn-danger btn-sm">Eliminar</a>
+                                <a th:href="@{/calificaciones/edit/{id}(id=${calificacion.id})}" class="btn btn-primary btn-sm"><!--Editar--> [[#{accion.editar}]]</a>
+                                <a th:href="@{/calificaciones/delete/{id}(id=${calificacion.id})}" class="btn btn-danger btn-sm"><!--Eliminar--> [[#{accion.eliminar}]]</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <a th:href="@{/calificaciones/add}" class="btn btn-success">Agregar Nueva Calificación</a>
+                <a th:href="@{/calificaciones/add}" class="btn btn-success"><!--Agregar Nueva Calificación -->[[#{calificacion.titulo4}]]</a>
             </div>
         </div>
     </div>

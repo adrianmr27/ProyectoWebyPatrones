@@ -1,7 +1,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear/Editar Calificación</title>
+<title><!--Crear/Editar Calificación--> [[#{calificacion.titulo}]]</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -10,24 +10,24 @@
     <h1 th:text="${#strings.equals(calificacion.id, null) ? 'Crear Calificación' : 'Editar Calificación'}"></h1>
     <form th:action="@{/calificaciones/save}" th:object="${calificacion}" method="post">
         <input type="hidden" th:field="*{id}" />
-        <label for="matriculaid">Matricula ID:</label>
+        <label for="matriculaid"> <!--Matricula ID:--> [[#{calificacion.matricula}]]</label>
         <input type="text" th:field="*{matriculaid.id}" />
-        <label for="laboratorio1">Laboratorio 1:</label>
+        <label for="laboratorio1"> <!--Laboratorio 1:-->  [[#{calificacion.lab1}]]</label>
         <input type="text" th:field="*{laboratorio1}" />
-        <label for="laboratorio2">Laboratorio 2:</label>
+        <label for="laboratorio2"><!--Laboratorio 2:--> [[#{calificacion.lab2}]]</label>
         <input type="text" th:field="*{laboratorio2}" />
-        <label for="quiz1">Quiz 1:</label>
+        <label for="quiz1"><!--Quiz 1:--> [[#{calificacion.quiz1}]]</label>
         <input type="text" th:field="*{quiz1}" />
-        <label for="quiz2">Quiz 2:</label>
+        <label for="quiz2"><!--Quiz 2:--> [[#{calificacion.quiz2}]]</label>
         <input type="text" th:field="*{quiz2}" />
-        <label for="examen1">Examen 1:</label>
+        <label for="examen1"><!--Examen 1:-->  [[#{calificacion.ex1}]]</label>
         <input type="text" th:field="*{examen1}" />
-        <label for="examen2">Examen 2:</label>
+        <label for="examen2"><!--Examen 2:--> [[#{calificacion.ex2}]]</label>
         <input type="text" th:field="*{examen2}" />
-        <label for="proyecto">Proyecto:</label>
+        <label for="proyecto"><!--Proyecto:-->  [[#{calificacion.proyecto}]]</label>
         <input type="text" th:field="*{proyecto}" />
-        <button type="submit">Guardar</button>
+        <button type="submit"><!--Guardar--> [[#{accion.guardar}]]</button>
     </form>
-    <a href="/calificaciones/list">Volver a la lista</a>
+    <a href="/calificaciones/list"><!--Volver a la lista--> [[#{calificacion.volver}]]</a>
 </body>
 </html>

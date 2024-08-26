@@ -4,14 +4,14 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <head th:replace="~{layout/plantilla2 :: head}">
-        <title>Asistencia - Cursos</title>
+        <title><!--Asistencia - Cursos--> [[#{curso.titulo}]]</title>
     </head>
     <body>
         <header th:replace="layout/plantilla2 :: header" />
     <section class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h4>Seleccionar Curso para Asistencia</h4>
+                <h4><!--Seleccionar Curso para Asistencia-->  [[#{curso.titulo2}]]</h4>
             </div>
             <div class="card-body">
                 <form action="/asistencia/estudiantes" method="get">
@@ -20,11 +20,11 @@
                         <select id="cursoId" name="cursoId" class="form-control">
                             <option th:each="curso : ${cursos}" 
                                     th:value="${curso.id}" 
-                                    th:text="${curso.nombre}">Curso</option>
+                                    th:text="${curso.nombre}"><!--Curso-->   [[#{curso.text}]]</option>
                         </select>
                     </div>
                     <div class="mt-3">
-                        <button type="submit" class="btn btn-primary">Seleccionar</button>
+                        <button type="submit" class="btn btn-primary">[[#{curso.boton}]]<!--Seleccionar--></button>
                     </div>
                 </form>
             </div>

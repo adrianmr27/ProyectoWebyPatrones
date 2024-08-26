@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Agregar/Editar Calificación</title>
+    <title><!--Agregar/Editar Calificación--> [[#{calificacion.titulo2}]]</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -13,46 +13,46 @@
                 <h1 class="display-6" th:text="${calificacion.id == null} ? 'Agregar Calificación' : 'Editar Calificación'"></h1>
                 <form th:action="@{${calificacion.id == null} ? '/calificaciones/save' : '/calificaciones/save'}" th:object="${calificacion}" method="post">
                     <div class="mb-3">
-                        <label for="matriculaid" class="form-label">Matrícula ID</label>
+                        <label for="matriculaid" class="form-label"><!--Matrícula ID-->  [[#{calificacion.matricula}]]</label>
                         <input type="text" class="form-control" th:field="*{matriculaid.id}" id="matriculaid" required>
                     </div>
                     <div class="mb-3">
-                        <label for="laboratorio1" class="form-label">Laboratorio 1</label>
+                        <label for="laboratorio1" class="form-label"><!--Laboratorio 1-->  [[#{calificacion.lab1}]]</label>
                         <input type="text" class="form-control" th:field="*{laboratorio1}" id="laboratorio1" required>
                     </div>
                     <div class="mb-3">
-                        <label for="laboratorio2" class="form-label">Laboratorio 2</label>
+                        <label for="laboratorio2" class="form-label"><!--Laboratorio 2:--> [[#{calificacion.lab2}]]</label>
                         <input type="text" class="form-control" th:field="*{laboratorio2}" id="laboratorio2" required>
                     </div>
                     <div class="mb-3">
-                        <label for="quiz1" class="form-label">Quiz 1</label>
+                        <label for="quiz1" class="form-label"><!--Quiz 1:--> [[#{calificacion.quiz1}]]</label>
                         <input type="text" class="form-control" th:field="*{quiz1}" id="quiz1" required>
                     </div>
                     <div class="mb-3">
-                        <label for="quiz2" class="form-label">Quiz 2</label>
+                        <label for="quiz2" class="form-label"><!--Quiz 2:--> [[#{calificacion.quiz2}]]</label>
                         <input type="text" class="form-control" th:field="*{quiz2}" id="quiz2" required>
                     </div>
                     <div class="mb-3">
-                        <label for="examen1" class="form-label">Examen 1</label>
+                        <label for="examen1" class="form-label"><!--Examen 1:-->  [[#{calificacion.ex1}]]</label>
                         <input type="text" class="form-control" th:field="*{examen1}" id="examen1" required>
                     </div>
                     <div class="mb-3">
-                        <label for="examen2" class="form-label">Examen 2</label>
+                        <label for="examen2" class="form-label"><!--Examen 2:--> [[#{calificacion.ex2}]]</label>
                         <input type="text" class="form-control" th:field="*{examen2}" id="examen2" required>
                     </div>
                     <div class="mb-3">
-                        <label for="proyecto" class="form-label">Proyecto</label>
+                        <label for="proyecto" class="form-label"><!--Proyecto:-->  [[#{calificacion.proyecto}]]</label>
                         <input type="text" class="form-control" th:field="*{proyecto}" id="proyecto" required>
                     </div>
                     <div class="mb-3">
-                        <label for="nota_final" class="form-label">Nota Final</label>
+                        <label for="nota_final" class="form-label"><!--Nota Final--> [[#{calificacion.nota}]]</label>
                         <input type="text" class="form-control" th:field="*{nota_final}" id="nota_final" required>
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" th:field="*{aprobado}" id="aprobado">
-                        <label for="aprobado" class="form-check-label">Aprobado</label>
+                        <label for="aprobado" class="form-check-label"><!--Aprobado-->  [[#{calificacion.aprobado}]]</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary"><!--Guardar --> [[#{accion.guardar}]]</button>
                 </form>
             </div>
         </div>

@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <head th:replace="~{layout/plantilla2 :: head}">
-        <title>Estudiantes</title>
+        <title> <!--Estudiantes--> [[#{estudiante.titulo}]]</title>
     </head>
 
     <body>
@@ -16,17 +16,17 @@
                     <div class="col">
                         <ul class="list-inline d-flex justify-content-between align-items-center">
                             <li class="list-inline-item">
-                                <h3 class="mr-3">Gestión de estudiantes</h3>
+                                <h3 class="mr-3"> <!--Gestión de estudiantes--> [[#{estudiante.titulo2}]]</h3>
                             </li>
                             <li class="list-inline-item">
-                                <h4>Estudiantes: <strong th:text="${estudiantes.size()}">0</strong></h4>
+                                <h4><!--Estudiantes:--> [[#{estudiante.titulo}]]: <strong th:text="${estudiantes.size()}">0</strong></h4>
                             </li>
                             <li class="list-inline-item">
                                 <button type="button" 
                                         class="btn btn-primary" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#agregarEstudiante">
-                                    Agregar Estudiante
+                                     <!--Agregar Estudiante--> [[#{estudiante.titulo3}]]
                                 </button>
                             </li>
                             <li class="list-inline-item ml-auto">
@@ -51,51 +51,39 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar Estudiante</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><!--Agregar Estudiante--> [[#{estudiante.titulo3}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
                         <form th:action="@{/estudiantes/guardar}" method="POST" class="was-validated" enctype="multipart/form-data" th:object="${estudiante}">
                             <div class="modal-body">
                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                 <div class="mb-3">
-                                    <label for="identificacion">Identificación</label>
+                                    <label for="identificacion"> <!--Identificación--> [[#{estudiante.id}]]</label>
                                     <input type="number" class="form-control" id="identificacion" name="persona.identificacion" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre del estudiante</label>
+                                    <label for="nombre"> <!--Nombre del estudiante--> [[#{estudiante.nombre}]]</label>
                                     <input type="text" class="form-control" id="nombre" name="persona.nombre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apellido1">Primer Apellido</label>
+                                    <label for="apellido1"> <!--Primer Apellido--> [[#{estudiante.apellido1}]]</label>
                                     <input type="text" class="form-control" id="apellido1" name="persona.apellido1" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apellido2">Segundo Apellido</label>
+                                    <label for="apellido2"> <!--Segundo Apellido--> [[#{estudiante.apellido2}]]</label>
                                     <input type="text" class="form-control" id="apellido2" name="persona.apellido2" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="correo">Correo</label>
+                                    <label for="correo"> <!--Correo--> [[#{estudiante.correo}]]</label>
                                     <input type="email" class="form-control" id="correo" name="persona.correo" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="telefono">Teléfono</label>
+                                    <label for="telefono"> <!--Teléfono--> [[#{estudiante.tel}]]</label>
                                     <input type="text" class="form-control" id="telefono" name="persona.telefono" required="true"/>
                                 </div>
-<!--                                <div class="mb-3">
-                                    <label for="curso">Cursos</label>
-                                    <select class="form-control" id="curso" name="curso.id" required="true">
-                                        <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="periodo">Período</label>
-                                    <select class="form-control" id="periodo" name="periodo.id" required="true">
-                                        <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
-                                    </select>
-                                </div>-->
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-primary" type="submit">[[#{accion.guardar}]]</button>
                             </div>
                         </form>
                     </div>
@@ -121,54 +109,54 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4>Actualizar Estudiante</h4>
+                                                <h4> <!--Actualizar Estudiante--> [[#{estudiante.titulo4}]]</h4>
                                             </div>
                                             <div class="card-body">
                                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                                 <div class="mb-3">
-                                                    <label for="identificacion">Id del estudiante</label>
+                                                    <label for="identificacion"><!--Identificación--> [[#{estudiante.id}]]</label>
                                                     <input type="number" class="form-control" 
                                                            id="identificacion" name="estudiante.persona.identificacion"
                                                            th:field="*{estudiante.persona.identificacion}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="nombre">Nombre del estudiante</label>
+                                                    <label for="nombre"><!--Nombre del estudiante--> [[#{estudiante.nombre}]]</label>
                                                     <input type="text" class="form-control" 
                                                            id="nombre" name="estudiante.persona.nombre"
                                                            th:field="*{estudiante.persona.nombre}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="apellido1">Primer apellido</label>
+                                                    <label for="apellido1"><!--Primer Apellido--> [[#{estudiante.apellido1}]]</label>
                                                     <input type="text" class="form-control" 
                                                            id="apellido1" name="estudiante.persona.apellido1"
                                                            th:field="*{estudiante.persona.apellido1}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="apellido2">Segundo apellido</label>
+                                                    <label for="apellido2"><!--Segundo Apellido--> [[#{estudiante.apellido2}]]</label>
                                                     <input type="text" class="form-control" 
                                                            id="apellido2" name="estudiante.persona.apellido2"
                                                            th:field="*{estudiante.persona.apellido2}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="correo">Correo</label>
+                                                    <label for="correo"><!--Correo--> [[#{estudiante.correo}]]</label>
                                                     <input type="text" class="form-control" 
                                                            id="correo" name="estudiante.persona.correo"
                                                            th:field="*{estudiante.persona.correo}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="telefono">Teléfono</label>
+                                                    <label for="telefono"><!--Teléfono--> [[#{estudiante.tel}]]</label>
                                                     <input type="text" class="form-control" 
                                                            id="telefono" name="estudiante.persona.telefono"
                                                            th:field="*{estudiante.persona.telefono}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="curso.id">Cursos</label>
+                                                    <label for="curso.id"> <!--Cursos--> [[#{curso.text2}]]</label>
                                                     <select class="form-control" id="curso" name="curso.id" required="true" th:field="*{curso.id}">
                                                         <option th:each="curso : ${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="periodo.id">Período</label>
+                                                    <label for="periodo.id"> <!--Período--> [[#{periodo}]]</label>
                                                     <select class="form-control" id="periodo" name="periodo.id" required="true" th:field="*{periodo.id}">
                                                         <option th:each="periodo : ${periodos}" th:value="${periodo.id}" th:text="${periodo.ano + ' - Cuatrimestre ' + periodo.cuatrimestre}"></option>
                                                     </select>
@@ -190,18 +178,18 @@
                 <div class="row">
                     <div class="col-md-4 d-grid">
                         <a th:href="@{/estudiantes/listado}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> Regresar
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
                         <a th:href="@{/estudiantes/eliminar/}+${estudiante.id}"
                            class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Eliminar
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> Guardar
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
                         </button>
                     </div>
                 </div>
@@ -215,16 +203,16 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Listado Estudiantes</h4>
+                                <h4> <!--Listado Estudiantes--> [[#{estudiante.titulo5}]]</h4>
                             </div>
                             <div th:if="${estudiantes != null and !estudiantes.empty}">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Nombre del estudiante</th>
-                                            <th>Correo</th>
-                                            <th>Teléfono</th>
-                                            <th>Clases inscritas</th>
+                                            <th><!--Nombre del estudiante--> [[#{estudiante.nombre}]]</th>
+                                            <th><!--Correo--> [[#{estudiante.correo}]]</th>
+                                            <th><!--Teléfono--> [[#{estudiante.tel}]]</th>
+                                            <th> <!--Clases inscritas--> [[#{estudiante.clases}]]</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -240,8 +228,8 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a th:href="@{/estudiantes/modificar/{idEstudiante}(idEstudiante=${estudiante.id})}" class="btn btn-primary">Modificar</a>
-                                                    <a th:href="@{/estudiantes/eliminar/{idEstudiante}(idEstudiante=${estudiante.id})}" class="btn btn-danger">Eliminar</a>
+                                                    <a th:href="@{/estudiantes/modificar/{idEstudiante}(idEstudiante=${estudiante.id})}" class="btn btn-primary">[[#{accion.editar}]]</a>
+                                                    <a th:href="@{/estudiantes/eliminar/{idEstudiante}(idEstudiante=${estudiante.id})}" class="btn btn-danger">[[#{accion.eliminar}]]</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -249,7 +237,7 @@
                                 </table>
                             </div>
                             <div th:if="${estudiantes == null or estudiantes.empty}">
-                                <div class="alert alert-info">No hay estudiantes registrados.</div>
+                                <div class="alert alert-info"> <!--No hay estudiantes registrados.--> [[#{estudiante.titulo6}]]</div>
                             </div>
                         </div>
                     </div>
