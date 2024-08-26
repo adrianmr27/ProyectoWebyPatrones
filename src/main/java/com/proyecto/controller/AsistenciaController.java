@@ -40,6 +40,7 @@ public class AsistenciaController {
     public String seleccionarCurso(Model model) {
         List<Curso> cursos = cursoService.getCursos();
         model.addAttribute("cursos", cursos);
+        System.out.println("Cursos cargados: " + cursos.size());
         return "asistencia/curso"; // Vista para seleccionar el curso
     }
 
@@ -50,6 +51,7 @@ public class AsistenciaController {
         model.addAttribute("estudiantes", estudiantes);
         model.addAttribute("cursoId", cursoId);
         model.addAttribute("cursoNombre", curso.getNombre()); // Pasar el nombre del curso al modelo
+        model.addAttribute("fecha", new Date()); // Asegúrate de que 'fecha' esté disponible en el modelo
         return "asistencia/estudiantes"; // Vista para pasar asistencia
     }
 
