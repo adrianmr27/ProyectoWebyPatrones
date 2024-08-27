@@ -10,29 +10,29 @@
         <main th:fragment="formularioLogIn" class="form-signin w-100 m-auto">
             <form>
                 <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-                <h1 class="h3 mb-3 fw-normal">Por favor inicia sesión</h1>
+                <h1 class="h3 mb-3 fw-normal"> <!--Por favor inicia sesión--> [[#{login.inicio}]]</h1>
 
                 <div class="form-floating">
                     <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Usuario</label>
+                    <label for="floatingInput"> <!--Usuario--> [[#{login.usuario}]]</label>
                 </div>
                 <div class="form-floating">
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Contraseña</label>
+                    <label for="floatingPassword"> <!--Contraseña--> [[#{login.contrasena}]]</label>
                 </div>
 
                 <div class="form-check text-start my-3">
                     <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
-                        Recuérdame
+                         <!--Recuérdame--> [[#{login.recordar}]]
                     </label>
                 </div>
                 <button class="btn btn-success" type="submit">
                     <span class="btn">
-                        <i class="fas fa-sign-in-alt"></i>Iniciar sesion
+                        <i class="fas fa-sign-in-alt"></i> <!--Iniciar sesion--> [[#{login.sesion}]]
                     </span>
                 </button>
-                <button class="btn btn-primary w-100 py-2" type="button" onclick="window.location.href = 'estudiantes/listado''">Iniciar sesión</button>
+                <button class="btn btn-primary w-100 py-2" type="button" onclick="window.location.href = 'estudiantes/listado''"><!--Iniciar sesion--> [[#{login.sesion}]]</button>
                 <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
             </form>
         </main>

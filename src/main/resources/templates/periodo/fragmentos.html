@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
     <head th:replace="~{layout/plantilla2 :: head}">
-        <title>Periodos</title>
+        <title> <!--Periodos--> [[#{periodos}]]</title>
     </head>
 
     <body>
@@ -16,17 +16,17 @@
                     <div class="col">
                         <ul class="list-inline d-flex justify-content-between align-items-center">
                             <li class="list-inline-item">
-                                <h3 class="mr-3">Gestión de Periodos</h3>
+                                <h3 class="mr-3"> <!--Gestión de Periodos--> [[#{periodo.titulo}]]</h3>
                             </li>
                             <li class="list-inline-item">
-                                <h4>Periodos: <strong th:text="${periodos.size()}">0</strong></h4>
+                                <h4> <!--Periodos--> [[#{periodos}]]: <strong th:text="${periodos.size()}">0</strong></h4>
                             </li>
                             <li class="list-inline-item">
                                 <button type="button" 
                                         class="btn btn-primary" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#agregarPeriodo">
-                                    Agregar Periodo
+                                     <!--Agregar Periodo--> [[#{periodo.titulo2}]]
                                 </button>
                             </li>
                             <li class="list-inline-item ml-auto">
@@ -52,31 +52,31 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" id="exampleModalLabel">Agregar Periodo</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><!--Agregar Periodo--> [[#{periodo.titulo2}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form th:action="@{/periodos/guardar}" method="POST" class="was-validated" enctype="multipart/form-data" th:object="${periodo}">
                             <div class="modal-body">
                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                 <div class="mb-3">
-                                    <label for="ano">Año</label>
+                                    <label for="ano"> <!--Año--> [[#{periodo.ano}]]</label>
                                     <input type="number" class="form-control" id="ano" name="ano" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cuatrimestre">Cuatrimestre</label>
+                                    <label for="cuatrimestre"> <!--Cuatrimestre--> [[#{periodo.cuatrimestre}]]</label>
                                     <input type="number" class="form-control" id="cuatrimestre" name="cuatrimestre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="fechaInicio">Fecha de Inicio</label>
+                                    <label for="fechaInicio"> <!--Fecha de Inicio--> [[#{periodo.fechai}]]</label>
                                     <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="fechaFin">Fecha de Fin</label>
+                                    <label for="fechaFin"> <!--Fecha de Fin--> [[#{periodo.fechaf}]]</label>
                                     <input type="date" class="form-control" id="fechaFin" name="fechaFin" required="true"/>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                <button class="btn btn-primary" type="submit"><!--Guardar--> [[#{accion.guardar}]]</button>
                             </div>
                         </form>
                     </div>
@@ -102,26 +102,26 @@
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4>Actualizar Periodo</h4>
+                                                <h4> <!--Actualizar Periodo--> [[#{periodo.titulo3}]]</h4>
                                             </div>
                                             <div class="card-body">
                                                 <div th:if="${error != null}" class="alert alert-danger" th:text="${error}"></div>
                                                 <div class="mb-3">
-                                                    <label for="ano">Año</label>
+                                                    <label for="ano"><!--Año--> [[#{periodo.ano}]]</label>
                                                     <input type="number" class="form-control" 
                                                            id="ano" name="ano"
                                                            th:field="*{ano}" required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="cuatrimestre">Cuatrimestre</label>
+                                                    <label for="cuatrimestre"><!--Cuatrimestre--> [[#{periodo.cuatrimestre}]]</label>
                                                     <input type="number" class="form-control" id="cuatrimestre" name="cuatrimestre" required="true" th:field="*{cuatrimestre}"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="fechaInicio">Fecha de Inicio</label>
+                                                    <label for="fechaInicio"><!--Fecha de Inicio--> [[#{periodo.fechai}]]</label>
                                                     <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required="true" th:field="*{fechaInicio}"/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="fechaFin">Fecha de Fin</label>
+                                                    <label for="fechaFin"><!--Fecha de Fin--> [[#{periodo.fechaf}]]</label>
                                                     <input type="date" class="form-control" id="fechaFin" name="fechaFin" required="true" th:field="*{fechaFin}"/>
                                                 </div>
                                             </div>
@@ -141,18 +141,18 @@
                 <div class="row">
                     <div class="col-md-4 d-grid">
                         <a th:href="@{/periodos/listado}" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> Regresar
+                            <i class="fas fa-arrow-left"></i> <!--Regresar--> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
                         <a th:href="@{/periodos/eliminar/{id}(id=${periodo.id})}"
                            class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Eliminar
+                            <i class="fas fa-trash"></i> <!--Eliminar--> [[#{accion.eliminar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> Guardar
+                            <i class="fas fa-check"></i> <!--Guardar--> [[#{accion.guardar}]]
                         </button>
                     </div>
                 </div>
@@ -166,17 +166,17 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Listado de Periodos</h4>
+                                <h4> <!--Listado de Periodos--> [[#{periodo.titulo4}]]</h4>
                             </div>
                             <div th:if="${periodos != null && !periodos.isEmpty()}">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Año</th>
-                                            <th>Cuatrimestre</th>
-                                            <th>Fecha de Inicio</th>
-                                            <th>Fecha de Fin</th>
-                                            <th>Acciones</th>
+                                            <th><!--Año--> [[#{periodo.ano}]]</th>
+                                            <th><!--Cuatrimestre--> [[#{periodo.cuatrimestre}]]</th>
+                                            <th><!--Fecha de Inicio--> [[#{periodo.fechai}]]</th>
+                                            <th><!--Fecha de Fin--> [[#{periodo.fechaf}]]</th>
+                                            <th> <!--Acciones--> [[#{acciones}]]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -188,14 +188,14 @@
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="accionesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Acciones
+                                                        <!--Acciones--> [[#{acciones}]]
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="accionesDropdown">
                                                         <li>
-                                                            <a class="dropdown-item" th:href="@{/periodos/modifica/{idPeriodo}(idPeriodo=${periodo.id})}">Modificar</a>
+                                                            <a class="dropdown-item" th:href="@{/periodos/modifica/{idPeriodo}(idPeriodo=${periodo.id})}">[[#{accion.editar}]]</a>
                                                         </li>
                                                         <li>
-                                                            <a class="dropdown-item text-danger" th:href="@{/periodos/eliminar/{id}(id=${periodo.id})}">Eliminar</a>
+                                                            <a class="dropdown-item text-danger" th:href="@{/periodos/eliminar/{id}(id=${periodo.id})}">[[#{accion.eliminar}]]</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -205,7 +205,7 @@
                                 </table>
                             </div>
                             <div th:if="${periodos == null || periodos.isEmpty()}" class="alert alert-warning" role="alert">
-                                No hay periodos disponibles.
+                                 <!--No hay periodos disponibles.--> [[#{periodo.titulo5}]]
                             </div>
                         </div>
                     </div>

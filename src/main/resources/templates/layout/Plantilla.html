@@ -21,6 +21,17 @@
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/"> <!--Home--> [[#{plantilla.principal}]]</a>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/planes"> <!--Planes--> [[#{plantilla.planes}]]</a>
                     <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/login"> <!--Iniciar Sesion--> [[#{plantilla.login}]]</a>
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Lang</a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item"  th:href="@{/(lang=es)}">ES</a></li>
+                                <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
                 </nav>
             </div>
         </header>
