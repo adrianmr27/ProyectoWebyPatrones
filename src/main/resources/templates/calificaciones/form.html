@@ -1,61 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title><!--Agregar/Editar Calificación--> [[#{calificacion.titulo2}]]</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-</head>
-<body>
-    <div class="container my-4">
-        <div class="row">
-            <div class="col">
-                <h1 class="display-6" th:text="${calificacion.id == null} ? 'Agregar Calificación' : 'Editar Calificación'"></h1>
-                <form th:action="@{${calificacion.id == null} ? '/calificaciones/save' : '/calificaciones/save'}" th:object="${calificacion}" method="post">
-                    <div class="mb-3">
-                        <label for="matriculaid" class="form-label"><!--Matrícula ID-->  [[#{calificacion.matricula}]]</label>
-                        <input type="text" class="form-control" th:field="*{matriculaid.id}" id="matriculaid" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="laboratorio1" class="form-label"><!--Laboratorio 1-->  [[#{calificacion.lab1}]]</label>
-                        <input type="text" class="form-control" th:field="*{laboratorio1}" id="laboratorio1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="laboratorio2" class="form-label"><!--Laboratorio 2:--> [[#{calificacion.lab2}]]</label>
-                        <input type="text" class="form-control" th:field="*{laboratorio2}" id="laboratorio2" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quiz1" class="form-label"><!--Quiz 1:--> [[#{calificacion.quiz1}]]</label>
-                        <input type="text" class="form-control" th:field="*{quiz1}" id="quiz1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quiz2" class="form-label"><!--Quiz 2:--> [[#{calificacion.quiz2}]]</label>
-                        <input type="text" class="form-control" th:field="*{quiz2}" id="quiz2" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="examen1" class="form-label"><!--Examen 1:-->  [[#{calificacion.ex1}]]</label>
-                        <input type="text" class="form-control" th:field="*{examen1}" id="examen1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="examen2" class="form-label"><!--Examen 2:--> [[#{calificacion.ex2}]]</label>
-                        <input type="text" class="form-control" th:field="*{examen2}" id="examen2" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="proyecto" class="form-label"><!--Proyecto:-->  [[#{calificacion.proyecto}]]</label>
-                        <input type="text" class="form-control" th:field="*{proyecto}" id="proyecto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nota_final" class="form-label"><!--Nota Final--> [[#{calificacion.nota}]]</label>
-                        <input type="text" class="form-control" th:field="*{nota_final}" id="nota_final" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" th:field="*{aprobado}" id="aprobado">
-                        <label for="aprobado" class="form-check-label"><!--Aprobado-->  [[#{calificacion.aprobado}]]</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary"><!--Guardar --> [[#{accion.guardar}]]</button>
-                </form>
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+    <head>
+        <title>[[#{calificacion.titulo2}]]</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla2 :: header" />
+        <div class="container my-4">
+            <div class="row">
+                <div class="col">
+                    <h1 class="display-6" th:text="${calificacion.id == null} ? 'Agregar Calificación' : 'Editar Calificación'"></h1>
+                    <form th:action="@{/calificaciones/save}" th:object="${calificacion}" method="post">
+                        <div class="mb-3">
+                            <label for="matriculaId" class="form-label">[[#{calificacion.matricula}]]</label>
+                            <select class="form-control" th:field="*{matriculaId.id}" id="matriculaId" required>
+                                <option value="">Seleccione una matrícula</option>
+                                <option th:each="matricula : ${matriculas}" th:value="${matricula.id}" th:text="${matricula.id}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-secondary" id="buscarDetalles">Buscar Detalles</button>
+                        </div>
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Curso</label>
+                            <input type="text" class="form-control" id="curso" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="estudiante" class="form-label">Estudiante</label>
+                            <input type="text" class="form-control" id="estudiante" readonly>
+                        </div>
+                        <!-- Resto del formulario -->
+                        <div class="mb-3">
+                            <label for="evaluacion1" class="form-label">[[#{calificacion.eval1}]]</label>
+                            <input type="text" class="form-control" th:field="*{evaluacion1}" id="evaluacion1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="evaluacion2" class="form-label">[[#{calificacion.eval2}]]</label>
+                            <input type="text" class="form-control" th:field="*{evaluacion2}" id="evaluacion2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="evaluacion3" class="form-label">[[#{calificacion.eval3}]]</label>
+                            <input type="text" class="form-control" th:field="*{evaluacion3}" id="evaluacion3" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nota_final" class="form-label">[[#{calificacion.nota}]]</label>
+                            <input type="text" class="form-control" th:field="*{notaFinal}" id="nota_final" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" th:field="*{aprobado}" id="aprobado">
+                            <label for="aprobado" class="form-check-label">[[#{calificacion.aprobado}]]</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">[[#{accion.guardar}]]</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#buscarDetalles').click(function () {
+                    var matriculaId = $('#matriculaId').val();
+                    if (matriculaId) {
+                        $.ajax({
+                            url: '/calificaciones/add/' + matriculaId,
+                            type: 'GET',
+                            success: function (data) {
+                                $('#curso').val(data.curso);
+                                $('#estudiante').val(data.estudiante);
+                            },
+                            error: function () {
+                                alert("No se pudieron obtener los detalles de la matrícula.");
+                            }
+                        });
+                    } else {
+                        alert("Por favor, seleccione una matrícula.");
+                    }
+                });
+            });
+        </script>
+        <footer th:replace="layout/plantilla2 :: footer" />
+    </body>
 </html>

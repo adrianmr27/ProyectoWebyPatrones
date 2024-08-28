@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<head>
+    <title>Editar Calificación</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+    <header th:replace="layout/plantilla2 :: header" />
+    <div class="container my-4">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-6">Editar Calificación</h1>
+                <form th:action="@{/calificaciones/save}" th:object="${calificacion}" method="post">
+                    <div class="mb-3">
+                        <label for="matriculaId" class="form-label">Matrícula ID</label>
+                        <input type="text" class="form-control" th:value="${matriculaId}" id="matriculaId" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="curso" class="form-label">Curso</label>
+                        <input type="text" class="form-control" th:value="${nombreCurso}" id="curso" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estudiante" class="form-label">Estudiante</label>
+                        <input type="text" class="form-control" th:value="${nombreEstudiante}" id="estudiante" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="evaluacion1" class="form-label">Evaluación 1</label>
+                        <input type="text" class="form-control" th:field="*{evaluacion1}" id="evaluacion1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="evaluacion2" class="form-label">Evaluación 2</label>
+                        <input type="text" class="form-control" th:field="*{evaluacion2}" id="evaluacion2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="evaluacion3" class="form-label">Evaluación 3</label>
+                        <input type="text" class="form-control" th:field="*{evaluacion3}" id="evaluacion3" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nota_final" class="form-label">Nota Final</label>
+                        <input type="text" class="form-control" th:field="*{notaFinal}" id="nota_final" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" th:field="*{aprobado}" id="aprobado">
+                        <label for="aprobado" class="form-check-label">Aprobado</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/plantilla2 :: footer" />
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.proyecto.service.impl;
 
 import com.proyecto.dao.MatriculaDao;
 import com.proyecto.domain.Curso;
+import com.proyecto.domain.Estudiante;
 import com.proyecto.domain.Matricula;
 import com.proyecto.domain.Periodo;
 import com.proyecto.service.MatriculaService;
@@ -67,5 +68,23 @@ public class MatriculaServiceImpl implements MatriculaService {
     public List<Matricula> findByPeriodo(Periodo periodo) {
         return matriculaDao.findByPeriodoId(periodo.getId());
     }
+    
+        // Implementación de los nuevos métodos
+    @Override
+    @Transactional(readOnly = true)
+    public Estudiante findEstudianteByMatriculaId(Long matriculaId) {
+        Matricula matricula = matriculaDao.findById(matriculaId).orElse(null);
+        return (matricula != null) ? matricula.getEstudiante() : null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Curso findCursoByMatriculaId(Long matriculaId) {
+        Matricula matricula = matriculaDao.findById(matriculaId).orElse(null);
+        return (matricula != null) ? matricula.getCurso() : null;
+    }
 
 }
+
+
+

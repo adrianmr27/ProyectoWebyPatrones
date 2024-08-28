@@ -1,56 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
 <head>
-    <title><!--Lista de Calificaciones -->[[#{calificacion.titulo3}]]</title>
+    <title>[[#{calificacion.titulo3}]]</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+    <header th:replace="layout/plantilla2 :: header" />
     <div class="container my-4">
         <div class="row">
             <div class="col">
-                <h1 class="display-6"><!--Lista de Calificaciones --> [[#{calificacion.titulo3}]]</h1>
+                <h1 class="display-6">[[#{calificacion.titulo3}]]</h1>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th><!--Matrícula ID-->  [[#{calificacion.matricula}]]</th>
-                            <th><!--Laboratorio 1-->  [[#{calificacion.lab1}]]</th>
-                            <th><!--Laboratorio 2:--> [[#{calificacion.lab2}]]</th>
-                            <th><!--Quiz 1:--> [[#{calificacion.quiz1}]]</th>
-                            <th><!--Quiz 2:--> [[#{calificacion.quiz2}]]</th>
-                            <th><!--Examen 1:-->  [[#{calificacion.ex1}]]</th>
-                            <th><!--Examen 2:--> [[#{calificacion.ex2}]]</th>
-                            <th><!--Proyecto:-->  [[#{calificacion.proyecto}]]</th>
-                            <th><!--Nota Final--> [[#{calificacion.nota}]]</th>
-                            <th><!--Aprobado-->  [[#{calificacion.aprobado}]]</th>
+                            <th>[[#{calificacion.matricula}]]</th>
+                            <th>[[#{calificacion.eval1}]]</th>
+                            <th>[[#{calificacion.eval2}]]</th>
+                            <th>[[#{calificacion.eval3}]]</th>
+                            <th>[[#{calificacion.nota}]]</th>
+                            <th>[[#{calificacion.aprobado}]]</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="calificacion : ${calificaciones}">
                             <td th:text="${calificacion.id}"></td>
-                            <td th:text="${calificacion.matriculaid.id}"></td>
-                            <td th:text="${calificacion.laboratorio1}"></td>
-                            <td th:text="${calificacion.laboratorio2}"></td>
-                            <td th:text="${calificacion.quiz1}"></td>
-                            <td th:text="${calificacion.quiz2}"></td>
-                            <td th:text="${calificacion.examen1}"></td>
-                            <td th:text="${calificacion.examen2}"></td>
-                            <td th:text="${calificacion.proyecto}"></td>
-                            <td th:text="${calificacion.nota_final}"></td>
+                            <td th:text="${calificacion.matriculaId.id}"></td>
+                            <td th:text="${calificacion.evaluacion1}"></td>
+                            <td th:text="${calificacion.evaluacion2}"></td>
+                            <td th:text="${calificacion.evaluacion3}"></td>
+                            <td th:text="${calificacion.notaFinal}"></td>
                             <td th:text="${calificacion.aprobado ? 'Sí' : 'No'}"></td>
                             <td>
-                                <a th:href="@{/calificaciones/edit/{id}(id=${calificacion.id})}" class="btn btn-primary btn-sm"><!--Editar--> [[#{accion.editar}]]</a>
-                                <a th:href="@{/calificaciones/delete/{id}(id=${calificacion.id})}" class="btn btn-danger btn-sm"><!--Eliminar--> [[#{accion.eliminar}]]</a>
+                                <a th:href="@{/calificaciones/edit/{id}(id=${calificacion.id})}" class="btn btn-primary btn-sm">[[#{accion.editar}]]</a>
+                                <a th:href="@{/calificaciones/delete/{id}(id=${calificacion.id})}" class="btn btn-danger btn-sm">[[#{accion.eliminar}]]</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <a th:href="@{/calificaciones/add}" class="btn btn-success"><!--Agregar Nueva Calificación -->[[#{calificacion.titulo4}]]</a>
+                <a th:href="@{/calificaciones/add}" class="btn btn-success">[[#{calificacion.titulo4}]]</a>
             </div>
         </div>
     </div>
+    <footer th:replace="layout/plantilla2 :: footer" />
 </body>
 </html>

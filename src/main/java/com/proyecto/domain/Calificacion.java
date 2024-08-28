@@ -16,29 +16,35 @@ public class Calificacion implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    private Matricula matriculaid;
+    @Column(name = "aprobado")
+    private Boolean aprobado;
 
-    private Float laboratorio1;
-    private Float laboratorio2;
-    private Float quiz1;
-    private Float quiz2;
-    private Float examen1;
-    private Float examen2;
-    private Float proyecto;
+    @Column(name = "evaluacion1")
+    private Float evaluacion1;
+
+    @Column(name = "evaluacion2")
+    private Float evaluacion2;
+
+    @Column(name = "evaluacion3")
+    private Float evaluacion3;
+
+    @Column(name = "nota_final")
+    private Float notaFinal;
+
+    @ManyToOne
+    @JoinColumn(name = "matricula_id")
+    private Matricula matriculaId;
 
     public Calificacion() {
         // Constructor sin argumentos
     }
 
-    public Calificacion(Matricula matriculaid, Float laboratorio1, Float laboratorio2, Float quiz1, Float quiz2, Float examen1, Float examen2, Float proyecto) {
-        this.matriculaid = matriculaid;
-        this.laboratorio1 = laboratorio1;
-        this.laboratorio2 = laboratorio2;
-        this.quiz1 = quiz1;
-        this.quiz2 = quiz2;
-        this.examen1 = examen1;
-        this.examen2 = examen2;
-        this.proyecto = proyecto;
+    public Calificacion(Boolean aprobado, Float evaluacion1, Float evaluacion2, Float evaluacion3, Float notaFinal, Matricula matriculaId) {
+        this.aprobado = aprobado;
+        this.evaluacion1 = evaluacion1;
+        this.evaluacion2 = evaluacion2;
+        this.evaluacion3 = evaluacion3;
+        this.notaFinal = notaFinal;
+        this.matriculaId = matriculaId;
     }
 }
